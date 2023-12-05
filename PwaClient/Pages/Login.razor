@@ -1,0 +1,50 @@
+@page "/Login"
+@using Blazored.LocalStorage;
+@using Microsoft.AspNetCore.Components.Authorization;
+
+@inject ILocalStorageService LocalStorageService
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager NavigationManager
+@inject HttpClient HttpClient
+
+<h3>Login</h3>
+
+<EditForm Model="loginForm" OnValidSubmit="HandleLogin">
+
+    <p>Username:</p>
+    <InputText @bind-Value="loginForm.Username" id="username"></InputText>
+    <p>Password:</p>
+    <InputText @bind-Value="loginForm.Password" id="password"></InputText>
+
+    <button type="submit">Login</button>
+
+</EditForm>
+
+@if (!string.IsNullOrEmpty(message))
+{
+    <p>@message</p>
+}
+
+@code {
+
+    private LoginForm loginForm = new LoginForm();
+    private string message = string.Empty;
+
+    private async Task HandleLogin()
+    {
+        var result = await HttpClient.PostAsJsonAsync("api/auth/login", loginForm);
+        var jwt = await result.Content.ReadFromJsonAsync<Jwt>();
+
+        if (jwt == null || string.IsNullOrEmpty(jwt.Token))
+        {
+            message = "Invalid username or password";
+            return;
+        }
+
+        await LocalStorageService.SetItemAsync("authToken", jwt.Token);
+        await AuthenticationStateProvider.GetAuthenticationStateAsync();
+
+        NavigationManager.NavigateTo("/");
+    }
+
+}

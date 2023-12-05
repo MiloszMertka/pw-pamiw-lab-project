@@ -1,0 +1,60 @@
+@page "/equipment-options"
+@inject HttpClient HttpClient
+
+@attribute [Authorize]
+
+<PageTitle>Equipment Options</PageTitle>
+
+<h1>Equipment Options</h1>
+
+@if (equipmentOptions == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <a class="btn btn-success" href="/equipment-options/create">Create Equipment Option</a>
+
+    <div style="overflow-x: scroll;">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var equipmentOption in equipmentOptions)
+                {
+                    <tr>
+                        <td>@equipmentOption.Id</td>
+                        <td>@equipmentOption.Name</td>
+                        <td>
+                            <div class="d-flex">
+                                <a class="btn btn-primary me-3" href="/equipment-options/edit/@equipmentOption.Id">Edit</a>
+                                <button class="btn btn-danger"
+                                    @onclick="() => DeleteEquipmentOption(equipmentOption.Id.GetValueOrDefault())">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@code {
+    private List<EquipmentOption>? equipmentOptions;
+
+    protected override async Task OnInitializedAsync()
+    {
+        equipmentOptions = await HttpClient.GetFromJsonAsync<List<EquipmentOption>>("api/equipment-options");
+    }
+
+    private async Task DeleteEquipmentOption(long id)
+    {
+        await HttpClient.DeleteAsync($"api/equipment-options/{id}");
+        equipmentOptions = await HttpClient.GetFromJsonAsync<List<EquipmentOption>>("api/equipment-options");
+    }
+}

@@ -1,0 +1,62 @@
+@page "/engines"
+@inject HttpClient HttpClient
+
+@attribute [Authorize]
+
+<PageTitle>Engines</PageTitle>
+
+<h1>Engines</h1>
+
+@if (engines == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <a class="btn btn-success" href="/engines/create">Create engine</a>
+
+    <div style="overflow-x: scroll;">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Horse Power</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var engine in engines)
+                {
+                    <tr>
+                        <td>@engine.Id</td>
+                        <td>@engine.Name</td>
+                        <td>@engine.HorsePower</td>
+                        <td>
+                            <div class="d-flex">
+                                <a class="btn btn-primary me-3" href="/engines/edit/@engine.Id">Edit</a>
+                                <button class="btn btn-danger"
+                                    @onclick="() => DeleteEngine(engine.Id.GetValueOrDefault())">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@code {
+    private List<Engine>? engines;
+
+    protected override async Task OnInitializedAsync()
+    {
+        engines = await HttpClient.GetFromJsonAsync<List<Engine>>("api/engines");
+    }
+
+    private async Task DeleteEngine(long id)
+    {
+        await HttpClient.DeleteAsync($"api/engines/{id}");
+        engines = await HttpClient.GetFromJsonAsync<List<Engine>>("api/engines");
+    }
+}

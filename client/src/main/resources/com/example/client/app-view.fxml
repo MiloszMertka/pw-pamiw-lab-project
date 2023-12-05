@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns:fx="http://javafx.com/fxml" alignment="CENTER" spacing="20.0"
+      fx:controller="com.example.client.view.AppViewModel">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+    </padding>
+    <Button text="Weather" onAction="#onWeatherButtonClick"/>
+    <Button text="Cars" onAction="#onCarsButtonClick"/>
+    <Button text="Engines" onAction="#onEnginesButtonClick"/>
+    <Button text="Equipment" onAction="#onEquipmentOptionsButtonClick"/>
+    <Button text="Logout" onAction="#onLogoutButtonClick"/>
+</VBox>

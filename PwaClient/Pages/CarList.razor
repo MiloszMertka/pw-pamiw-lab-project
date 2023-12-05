@@ -1,0 +1,73 @@
+@page "/cars"
+@inject HttpClient HttpClient
+
+@attribute [Authorize]
+
+<PageTitle>Cars</PageTitle>
+
+<h1>Cars</h1>
+
+@if (cars == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <a class="btn btn-success" href="/cars/create">Create car</a>
+
+    <div style="overflow-x: scroll;">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Color</th>
+                <th>Engine</th>
+                <th>Equipment Options</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var car in cars)
+                {
+                    <tr>
+                        <td>@car.Id</td>
+                        <td>@car.Name</td>
+                        <td>@car.Color</td>
+                        <td>@car.Engine.Name</td>
+                        <td>
+                            <ul>
+                                @foreach (var option in car.EquipmentOptions)
+                                {
+                                    <li>@option.Name</li>
+                                }
+                            </ul>
+                        </td>
+                        <td>
+                            <div class="d-flex">
+                                <a class="btn btn-primary me-3" href="/cars/edit/@car.Id">Edit</a>
+                                <button class="btn btn-danger"
+                                    @onclick="() => DeleteCar(car.Id.GetValueOrDefault())">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@code {
+    private List<Car>? cars;
+
+    protected override async Task OnInitializedAsync()
+    {
+        cars = await HttpClient.GetFromJsonAsync<List<Car>>("api/cars");
+    }
+
+    private async Task DeleteCar(long id)
+    {
+        await HttpClient.DeleteAsync($"api/cars/{id}");
+        cars = await HttpClient.GetFromJsonAsync<List<Car>>("api/cars");
+    }
+}

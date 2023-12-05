@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns:fx="http://javafx.com/fxml" alignment="CENTER" spacing="20.0"
+      fx:controller="com.example.client.view.WeatherViewModel">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+    </padding>
+
+    <Label text="City"/>
+    <TextField fx:id="cityField"/>
+    <Button text="Search" onAction="#onSearchButtonClick"/>
+    <VBox>
+        <HBox>
+            <Label text="Temperature (current): "/>
+            <Label fx:id="currentTemperatureLabel"/>
+        </HBox>
+        <HBox>
+            <Label text="Temperature (past 6 hours): "/>
+            <Label fx:id="pastTemperatureLabel"/>
+        </HBox>
+        <HBox>
+            <Label text="Temperature (past 24 hours): "/>
+            <Label fx:id="pastDayTemperatureLabel"/>
+        </HBox>
+        <HBox>
+            <Label text="Temperature (in 12 hours): "/>
+            <Label fx:id="next12HoursTemperatureLabel"/>
+        </HBox>
+        <HBox>
+            <Label text="Temperature (next day): "/>
+            <Label fx:id="nextDayTemperatureLabel"/>
+        </HBox>
+        <HBox>
+            <Label text="Temperature (in 5 days): "/>
+            <Label fx:id="next5DaysTemperatureLabel"/>
+        </HBox>
+    </VBox>
+    <Button text="Go back" onAction="#onGoBackButtonClick"/>
+</VBox>

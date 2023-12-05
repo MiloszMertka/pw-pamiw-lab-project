@@ -1,0 +1,76 @@
+@page "/cars/create"
+@inject HttpClient HttpClient
+
+@attribute [Authorize]
+
+<h1>Create Car</h1>
+
+@if (isFormSubmitted)
+{
+    <p>Form submitted successfully!</p>
+}
+else if (engines == null || equipmentOptions == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <form @onsubmit="SubmitForm">
+    <div class="mb-3">
+        <label class="form-label" for="name">Name</label>
+        <input class="form-control" id="name" @bind="carForm.Name" type="text">
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="color">Color</label>
+        <input class="form-control" id="color" @bind="carForm.Color" type="text">
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="engineId">Engine</label>
+        <select class="form-select" id="engineId" @bind="carForm.EngineId">
+            <option value="">Choose engine</option>
+            @foreach (var engine in engines)
+                {
+                    <option value="@engine.Id">@engine.Name</option>
+                }
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="equipmentOptionsIds">Equipment options:</label>
+            <select class="form-select" id="equipmentOptionsIds" multiple style="min-height: 450px"
+                @bind="carForm.EquipmentOptionsIds">
+                @foreach (var equipmentOption in equipmentOptions)
+                {
+                    <option value="@equipmentOption.Id">@equipmentOption.Name</option>
+                }
+            </select>
+        </div>
+        <div class="d-flex justify-content-end">
+            <a class="btn btn-secondary" href="/cars">Cancel</a>
+            <button class="btn btn-primary ms-3" type="submit">Submit</button>
+        </div>
+    </form>
+}
+
+@code {
+    private CarForm carForm = new CarForm();
+    private List<Engine>? engines;
+    private List<EquipmentOption>? equipmentOptions;
+    private bool isFormSubmitted = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        engines = await HttpClient.GetFromJsonAsync<List<Engine>>("api/engines");
+        equipmentOptions = await HttpClient.GetFromJsonAsync<List<EquipmentOption>>("api/equipment-options");
+    }
+
+    private async Task SubmitForm()
+    {
+        var carEngine = engines.First<Engine>(engine => engine.Id == carForm.EngineId);
+        var carEquipmentOptions = equipmentOptions.Where(equipmentOption =>
+        carForm.EquipmentOptionsIds.ToList().Contains(equipmentOption.Id.GetValueOrDefault())).ToList();
+
+        var car = new Car(carForm.Name, carForm.Color, carEngine, carEquipmentOptions);
+        await HttpClient.PostAsJsonAsync("api/cars", car);
+        isFormSubmitted = true;
+    }
+}

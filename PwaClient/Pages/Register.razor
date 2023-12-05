@@ -1,0 +1,38 @@
+@page "/Register"
+
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+
+<h3>Register</h3>
+
+
+<EditForm Model="registerForm" OnValidSubmit="HandleRegistration">
+
+    <p>Username:</p>
+    <InputText @bind-Value="registerForm.Username" id="username"></InputText>
+    <p>Password:</p>
+    <InputText @bind-Value="registerForm.Password" id="password"></InputText>
+
+    <button type="submit">Register</button>
+</EditForm>
+
+<p>@message</p>
+
+
+@code {
+    RegisterForm registerForm = new RegisterForm();
+    string message = string.Empty;
+
+    async Task HandleRegistration()
+    {
+        var result = await HttpClient.PostAsJsonAsync("api/auth/register", registerForm);
+
+        if (!result.IsSuccessStatusCode)
+        {
+            message = "Registration failed";
+            return;
+        }
+
+        NavigationManager.NavigateTo("Login");
+    }
+}
