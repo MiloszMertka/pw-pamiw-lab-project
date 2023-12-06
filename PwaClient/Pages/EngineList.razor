@@ -1,49 +1,52 @@
 @page "/engines"
+
 @inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+@inject IDialogService DialogService
+@inject IStringLocalizer<EngineList> Loc
 
 @attribute [Authorize]
 
-<PageTitle>Engines</PageTitle>
-
-<h1>Engines</h1>
+<PageTitle>@Loc["Engines"]</PageTitle>
 
 @if (engines == null)
 {
-    <p><em>Loading...</em></p>
+    <LoadingIndicator />
 }
 else
 {
-    <a class="btn btn-success" href="/engines/create">Create engine</a>
-
-    <div style="overflow-x: scroll;">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Horse Power</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var engine in engines)
-                {
-                    <tr>
-                        <td>@engine.Id</td>
-                        <td>@engine.Name</td>
-                        <td>@engine.HorsePower</td>
-                        <td>
-                            <div class="d-flex">
-                                <a class="btn btn-primary me-3" href="/engines/edit/@engine.Id">Edit</a>
-                                <button class="btn btn-danger"
-                                    @onclick="() => DeleteEngine(engine.Id.GetValueOrDefault())">Delete</button>
-                            </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+    <div class="d-flex justify-space-between align-center">
+    <MudText Typo="Typo.h3" Class="mb-4">@Loc["Engines"]</MudText>
+    <MudButton Color="Color.Primary" Variant="Variant.Filled" @onclick="CreateEngine">@Loc["Create Engine"]</MudButton>
+</div>
+    <MudDataGrid Items="@engines" ReadOnly="true">
+        <Columns>
+            <HierarchyColumn T="Engine" />
+            <PropertyColumn Property="engine => engine.Name" Title="@(@Loc["Name"])" />
+            <PropertyColumn Property="@(engine => $"{engine.HorsePower.ToString()} HP")" Title="@(@Loc["Horse Power"])" />
+        </Columns>
+        <ChildRowContent>
+            <MudCard>
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h6">@context.Item.Name</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText>@(@Loc["Horse Power"]): @context.Item.HorsePower.ToString() HP</MudText>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton Variant="Variant.Text" Color="Color.Primary"
+                        @onclick="() => EditEngine(context.Item.Id.GetValueOrDefault())">@(@Loc["Edit"])</MudButton>
+                    <MudButton Variant="Variant.Text" Color="Color.Error"
+                        @onclick="() => DeleteEngine(context.Item.Id.GetValueOrDefault())">@(@Loc["Delete"])</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </ChildRowContent>
+        <PagerContent>
+            <MudDataGridPager T="Engine" />
+        </PagerContent>
+    </MudDataGrid>
 }
 
 @code {
@@ -56,7 +59,33 @@ else
 
     private async Task DeleteEngine(long id)
     {
+        var parameters = new DialogParameters<Dialog>();
+        parameters.Add(engine => engine.ContentText, Loc["Do you really want to delete this record? This process cannot be undone."]);
+        parameters.Add(engine => engine.ButtonText, Loc["Delete"]);
+        parameters.Add(engine => engine.Color, Color.Error);
+
+        var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+
+        var dialog = DialogService.Show<Dialog>(Loc["Delete Engine"], parameters, options);
+        var result = await dialog.Result;
+
+        if (result.Canceled)
+        {
+            return;
+        }
+
+        engines = null;
         await HttpClient.DeleteAsync($"api/engines/{id}");
         engines = await HttpClient.GetFromJsonAsync<List<Engine>>("api/engines");
+    }
+
+    private void EditEngine(long id)
+    {
+        NavigationManager.NavigateTo($"/engines/edit/{id}");
+    }
+
+    private void CreateEngine()
+    {
+        NavigationManager.NavigateTo("/engines/create");
     }
 }

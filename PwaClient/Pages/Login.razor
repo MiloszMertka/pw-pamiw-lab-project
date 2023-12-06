@@ -1,43 +1,58 @@
 @page "/Login"
+
 @using Blazored.LocalStorage;
 @using Microsoft.AspNetCore.Components.Authorization;
+@using System.Globalization;
 
 @inject ILocalStorageService LocalStorageService
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject NavigationManager NavigationManager
 @inject HttpClient HttpClient
+@inject IStringLocalizer<Login> Loc
 
-<h3>Login</h3>
+<PageTitle>@Loc["Login"]</PageTitle>
 
 <EditForm Model="loginForm" OnValidSubmit="HandleLogin">
-
-    <p>Username:</p>
-    <InputText @bind-Value="loginForm.Username" id="username"></InputText>
-    <p>Password:</p>
-    <InputText @bind-Value="loginForm.Password" id="password"></InputText>
-
-    <button type="submit">Login</button>
-
+    <DataAnnotationsValidator />
+    <MudCard>
+        <MudCardHeader>
+            <MudText Typo="Typo.h6">@Loc["Login"]</MudText>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudTextField Label="@(@Loc["Username"])" @bind-Value="loginForm.Username"
+                For="@(() => loginForm.Username)" />
+            <MudTextField Label="@(@Loc["Password"])" Class="mt-3" @bind-Value="loginForm.Password"
+                For="@(() => loginForm.Password)" InputType="InputType.Password" />
+        </MudCardContent>
+        <MudCardActions>
+            <SubmitButton IsSubmitting="isSubmitting" Text="@(@Loc["Login Action"])"
+                SubmittingText="@(@Loc["Logging in"])" Class="ml-auto" />
+        </MudCardActions>
+    </MudCard>
 </EditForm>
 
 @if (!string.IsNullOrEmpty(message))
 {
-    <p>@message</p>
+    <MudAlert Severity="Severity.Error" Class="mt-4">@message</MudAlert>
 }
 
 @code {
 
     private LoginForm loginForm = new LoginForm();
     private string message = string.Empty;
+    private bool isSubmitting = false;
 
     private async Task HandleLogin()
     {
+        isSubmitting = true;
+        message = string.Empty;
         var result = await HttpClient.PostAsJsonAsync("api/auth/login", loginForm);
         var jwt = await result.Content.ReadFromJsonAsync<Jwt>();
 
         if (jwt == null || string.IsNullOrEmpty(jwt.Token))
         {
-            message = "Invalid username or password";
+            message = Loc["Invalid credentials"];
+            isSubmitting = false;
             return;
         }
 
@@ -45,6 +60,7 @@
         await AuthenticationStateProvider.GetAuthenticationStateAsync();
 
         NavigationManager.NavigateTo("/");
+        isSubmitting = false;
     }
 
 }

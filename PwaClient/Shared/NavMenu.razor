@@ -1,44 +1,7 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">PwaClient</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-</div>
+﻿@inject IStringLocalizer<NavMenu> Loc
 
-<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="cars">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Cars
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="engines">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Engines
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="equipment-options">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Equipment Options
-            </NavLink>
-        </div>
-    </nav>
-</div>
-
-@code {
-    private bool collapseNavMenu = true;
-
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-}
+<MudNavMenu>
+    <MudNavLink Href="/cars" Match="NavLinkMatch.All">@Loc["Cars"]</MudNavLink>
+    <MudNavLink Href="/engines" Match="NavLinkMatch.Prefix">@Loc["Engines"]</MudNavLink>
+    <MudNavLink Href="/equipment-options" Match="NavLinkMatch.Prefix">@Loc["Equipment Options"]</MudNavLink>
+</MudNavMenu>

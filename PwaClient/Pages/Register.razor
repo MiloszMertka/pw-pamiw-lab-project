@@ -2,37 +2,57 @@
 
 @inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
+@inject IStringLocalizer<Register> Loc
 
-<h3>Register</h3>
-
+<PageTitle>@Loc["Register"]</PageTitle>
 
 <EditForm Model="registerForm" OnValidSubmit="HandleRegistration">
-
-    <p>Username:</p>
-    <InputText @bind-Value="registerForm.Username" id="username"></InputText>
-    <p>Password:</p>
-    <InputText @bind-Value="registerForm.Password" id="password"></InputText>
-
-    <button type="submit">Register</button>
+    <DataAnnotationsValidator />
+    <MudCard>
+        <MudCardHeader>
+            <MudText Typo="Typo.h6">@Loc["Register"]</MudText>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudTextField Label="@(@Loc["Username"])" @bind-Value="registerForm.Username"
+                For="@(() => registerForm.Username)" />
+            <MudTextField Label="@(@Loc["Password"])" Class="mt-3" @bind-Value="registerForm.Password"
+                For="@(() => registerForm.Password)" InputType="InputType.Password" />
+            <MudTextField Label="@(@Loc["Confirm Password"])" Class="mt-3"
+                @bind-Value="registerForm.PasswordConfirmation" For="@(() => registerForm.PasswordConfirmation)"
+                InputType="InputType.Password" />
+        </MudCardContent>
+        <MudCardActions>
+            <SubmitButton IsSubmitting="isSubmitting" Text="@(@Loc["Register Action"])"
+                SubmittingText="@(@Loc["Registering"])" Class="ml-auto" />
+        </MudCardActions>
+    </MudCard>
 </EditForm>
 
-<p>@message</p>
+@if (!string.IsNullOrEmpty(message))
+{
+    <MudAlert Severity="Severity.Error" Class="mt-4">@message</MudAlert>
+}
 
 
 @code {
     RegisterForm registerForm = new RegisterForm();
     string message = string.Empty;
+    private bool isSubmitting = false;
 
     async Task HandleRegistration()
     {
+        isSubmitting = true;
+        message = string.Empty;
         var result = await HttpClient.PostAsJsonAsync("api/auth/register", registerForm);
 
         if (!result.IsSuccessStatusCode)
         {
-            message = "Registration failed";
+            message = Loc["Registration failed"];
+            isSubmitting = false;
             return;
         }
 
-        NavigationManager.NavigateTo("Login");
+        NavigationManager.NavigateTo("/login");
+        isSubmitting = false;
     }
 }

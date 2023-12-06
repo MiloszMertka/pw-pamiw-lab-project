@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab8/PwaClient/PwaClient.csproj": {}
+    "/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab-project/PwaClient/PwaClient.csproj": {}
   },
   "projects": {
-    "/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab8/PwaClient/PwaClient.csproj": {
+    "/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab-project/PwaClient/PwaClient.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab8/PwaClient/PwaClient.csproj",
+        "projectUniqueName": "/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab-project/PwaClient/PwaClient.csproj",
         "projectName": "PwaClient",
-        "projectPath": "/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab8/PwaClient/PwaClient.csproj",
+        "projectPath": "/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab-project/PwaClient/PwaClient.csproj",
         "packagesPath": "/Users/miloszmertka/.nuget/packages/",
-        "outputPath": "/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab8/PwaClient/obj/",
+        "outputPath": "/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab-project/PwaClient/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/miloszmertka/.nuget/NuGet/NuGet.Config"
@@ -55,6 +55,14 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[7.0.13, )"
+            },
+            "Microsoft.Extensions.Localization": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "MudBlazor": {
+              "target": "Package",
+              "version": "[6.11.1, )"
             }
           },
           "imports": [

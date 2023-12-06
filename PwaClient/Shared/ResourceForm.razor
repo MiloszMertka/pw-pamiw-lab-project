@@ -1,0 +1,28 @@
+@inject IStringLocalizer<ResourceForm> Loc
+
+<EditForm Model="Model" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <MudCard>
+        <MudCardHeader>
+            <MudText Typo="Typo.h6">@Title</MudText>
+        </MudCardHeader>
+        <MudCardContent>
+            @ChildContent
+        </MudCardContent>
+        <MudCardActions>
+            <MudButton ButtonType="ButtonType.Button" Variant="Variant.Text" Color="Color.Primary" @onclick="OnCancel"
+                Class="ml-auto mr-3">
+                @Loc["Cancel"]</MudButton>
+            <SubmitButton IsSubmitting="IsSubmitting" />
+        </MudCardActions>
+    </MudCard>
+</EditForm>
+
+@code {
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public string Title { get; set; }
+    [Parameter] public Object Model { get; set; }
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+    [Parameter] public EventCallback OnCancel { get; set; }
+    [Parameter] public bool IsSubmitting { get; set; }
+}

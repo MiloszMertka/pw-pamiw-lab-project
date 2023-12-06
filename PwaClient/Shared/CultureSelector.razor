@@ -1,0 +1,35 @@
+@using System.Globalization
+@inject IJSRuntime JS
+@inject NavigationManager Navigation
+
+<MudMenu StartIcon="@Icons.Material.Filled.Translate" EndIcon="@Icons.Material.Filled.KeyboardArrowDown"
+    Label="@Culture.DisplayName" Color="Color.Primary" Variant="Variant.Filled" DisableElevation="true">
+    @foreach (var culture in supportedCultures)
+    {
+        <MudMenuItem @onclick="() => Culture = culture">@culture.DisplayName</MudMenuItem>
+    }
+    </MudMenu>
+
+    @code
+    {
+    private CultureInfo[] supportedCultures = new[]
+    {
+new CultureInfo("en-US"),
+new CultureInfo("pl-PL"),
+};
+
+    private CultureInfo Culture
+    {
+        get => CultureInfo.CurrentCulture;
+        set
+        {
+            if (CultureInfo.CurrentCulture != value)
+            {
+                var js = (IJSInProcessRuntime)JS;
+                js.InvokeVoid("blazorCulture.set", value.Name);
+
+                Navigation.NavigateTo(Navigation.Uri, forceLoad: true);
+            }
+        }
+    }
+}

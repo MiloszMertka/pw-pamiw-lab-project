@@ -1,54 +1,45 @@
 @page "/cars/edit/{id:long}"
+
 @inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+@inject IStringLocalizer<EditCarForm> Loc
 
 @attribute [Authorize]
 
-<h1>Edit Car</h1>
+<PageTitle>@Loc["Edit Car"]</PageTitle>
 
-@if (isFormSubmitted)
+@if (engines == null || equipmentOptions == null)
 {
-    <p>Form submitted successfully!</p>
-}
-else if (engines == null || equipmentOptions == null)
-{
-    <p><em>Loading...</em></p>
+    <LoadingIndicator />
 }
 else
 {
-    <form @onsubmit="SubmitForm">
-    <div class="mb-3">
-        <label class="form-label" for="name">Name</label>
-        <input class="form-control" id="name" @bind="carForm.Name" type="text">
-    </div>
-    <div class="mb-3">
-        <label class="form-label" for="color">Color</label>
-        <input class="form-control" id="color" @bind="carForm.Color" type="text">
-    </div>
-    <div class="mb-3">
-        <label class="form-label" for="engineId">Engine</label>
-        <select class="form-select" id="engineId" @bind="carForm.EngineId">
-            <option value="">Choose engine</option>
-            @foreach (var engine in engines)
-                {
-                    <option value="@engine.Id">@engine.Name</option>
-                }
-            </select>
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="equipmentOptionsIds">Equipment options:</label>
-            <select class="form-select" id="equipmentOptionsIds" multiple style="min-height: 450px"
-                @bind="carForm.EquipmentOptionsIds">
-                @foreach (var equipmentOption in equipmentOptions)
-                {
-                    <option value="@equipmentOption.Id">@equipmentOption.Name</option>
-                }
-            </select>
-        </div>
-        <div class="d-flex justify-content-end">
-            <a class="btn btn-secondary" href="/cars">Cancel</a>
-            <button class="btn btn-primary ms-3" type="submit">Submit</button>
-        </div>
-    </form>
+    <ResourceForm Title="@(@Loc["Edit Car"])" Model="carForm" OnValidSubmit="SubmitForm" OnCancel="CancelForm"
+    IsSubmitting="isSubmitting">
+    <MudTextField Label="@(@Loc["Name"])" @bind-Value="carForm.Name" For="@(() => carForm.Name)" />
+    <MudTextField Label="@(@Loc["Color"])" @bind-Value="carForm.Color" For="@(() => carForm.Color)" />
+    <MudSelect T="long?" Label="@(@Loc["Engine"])" AnchorOrigin="Origin.BottomCenter" @bind-Value="carForm.EngineId"
+        For="@(() => carForm.EngineId)">
+        @foreach (var engine in engines)
+            {
+                <MudSelectItem T="long?" Value="engine.Id.GetValueOrDefault()">@engine.Name</MudSelectItem>
+            }
+        </MudSelect>
+        <MudSelect T="string" Label="@(@Loc["Equipment Options"])" MultiSelection="true" @bind-Value="equipmentOptionsValue"
+            For="@(() => equipmentOptionsValue)">
+            @foreach (var equipmentOption in equipmentOptions)
+            {
+                <MudSelectItem T="string" Value="equipmentOption.Name">
+                    @equipmentOption.Name
+                </MudSelectItem>
+            }
+        </MudSelect>
+    </ResourceForm>
+}
+
+@if (!string.IsNullOrEmpty(message))
+{
+    <MudAlert Severity="Severity.Error" Class="mt-4">@message</MudAlert>
 }
 
 @code {
@@ -58,7 +49,9 @@ else
     private CarForm carForm = new CarForm();
     private List<Engine>? engines;
     private List<EquipmentOption>? equipmentOptions;
-    private bool isFormSubmitted = false;
+    private string equipmentOptionsValue;
+    string message = string.Empty;
+    private bool isSubmitting;
 
     protected override async Task OnInitializedAsync()
     {
@@ -73,15 +66,40 @@ else
         equipmentOptions = await HttpClient.GetFromJsonAsync<List<EquipmentOption>>("api/equipment-options");
     }
 
+    private void CancelForm()
+    {
+        NavigationManager.NavigateTo("/cars");
+    }
+
     private async Task SubmitForm()
     {
+        isSubmitting = true;
+        message = string.Empty;
+        ConvertEquipmentOptionsValue();
         var carEngine = engines.First<Engine>(engine => engine.Id == carForm.EngineId);
         var carEquipmentOptions = equipmentOptions.Where(equipmentOption =>
         carForm.EquipmentOptionsIds.ToList().Contains(equipmentOption.Id.GetValueOrDefault())).ToList();
 
         var car = new Car(carForm.Name, carForm.Color, carEngine, carEquipmentOptions);
         car.Id = id;
-        await HttpClient.PutAsJsonAsync($"api/cars/{id}", car);
-        isFormSubmitted = true;
+        var result = await HttpClient.PutAsJsonAsync($"api/cars/{id}", car);
+
+        if (!result.IsSuccessStatusCode)
+        {
+            message = Loc["Something went wrong"];
+            isSubmitting = false;
+            return;
+        }
+
+        NavigationManager.NavigateTo("/cars");
+        isSubmitting = false;
+    }
+
+    private void ConvertEquipmentOptionsValue()
+    {
+        carForm.EquipmentOptionsIds = equipmentOptionsValue.Split(",")
+        .Select(equipmentOptionValue => equipmentOptions.First(equipmentOption => equipmentOption.Name.Trim() ==
+        equipmentOptionValue.Trim()).Id.GetValueOrDefault())
+        .ToArray();
     }
 }

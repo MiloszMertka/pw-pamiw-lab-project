@@ -1,0 +1,33 @@
+@inject IStringLocalizer<SubmitButton> Loc
+
+<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Disabled="@IsSubmitting"
+    Class="@Class">
+    @if (IsSubmitting)
+    {
+        <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+        <MudText Class="ms-2">@SubmittingText.ToUpper()</MudText>
+    }
+    else
+    {
+        <MudText>@Text.ToUpper()</MudText>
+    }
+    </MudButton>
+
+    @code {
+    [Parameter] public bool IsSubmitting { get; set; } = false;
+    [Parameter] public string Text { get; set; } = "";
+    [Parameter] public string SubmittingText { get; set; } = "";
+    [Parameter] public string Class { get; set; } = "";
+
+    protected override void OnInitialized()
+    {
+        if (string.IsNullOrWhiteSpace(Text))
+        {
+            Text = Loc["Submit"];
+        }
+        if (string.IsNullOrWhiteSpace(SubmittingText))
+        {
+            SubmittingText = Loc["Submitting"];
+        }
+    }
+}

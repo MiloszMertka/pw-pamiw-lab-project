@@ -9,73 +9,93 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = browser
 build_property.RootNamespace = PwaClient
 build_property.RootNamespace = PwaClient
-build_property.ProjectDir = /Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab8/PwaClient/
+build_property.ProjectDir = /Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab-project/PwaClient/
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = /Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab8/PwaClient
+build_property.MSBuildProjectDirectory = /Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab-project/PwaClient
 build_property._RazorSourceGeneratorDebug = 
 
-[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab8/PwaClient/App.razor]
+[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab-project/PwaClient/App.razor]
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab8/PwaClient/Pages/CarList.razor]
+[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab-project/PwaClient/Pages/CarList.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ2FyTGlzdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab8/PwaClient/Pages/CreateCarForm.razor]
+[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab-project/PwaClient/Pages/CreateCarForm.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ3JlYXRlQ2FyRm9ybS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab8/PwaClient/Pages/CreateEngineForm.razor]
+[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab-project/PwaClient/Pages/CreateEngineForm.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ3JlYXRlRW5naW5lRm9ybS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab8/PwaClient/Pages/CreateEquipmentOptionForm.razor]
+[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab-project/PwaClient/Pages/CreateEquipmentOptionForm.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ3JlYXRlRXF1aXBtZW50T3B0aW9uRm9ybS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab8/PwaClient/Pages/EditCarForm.razor]
+[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab-project/PwaClient/Pages/EditCarForm.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRWRpdENhckZvcm0ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab8/PwaClient/Pages/EditEngineForm.razor]
+[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab-project/PwaClient/Pages/EditEngineForm.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRWRpdEVuZ2luZUZvcm0ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab8/PwaClient/Pages/EditEquipmentOptionForm.razor]
+[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab-project/PwaClient/Pages/EditEquipmentOptionForm.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRWRpdEVxdWlwbWVudE9wdGlvbkZvcm0ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab8/PwaClient/Pages/EngineList.razor]
+[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab-project/PwaClient/Pages/EngineList.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRW5naW5lTGlzdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab8/PwaClient/Pages/EquipmentOptionList.razor]
+[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab-project/PwaClient/Pages/EquipmentOptionList.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXF1aXBtZW50T3B0aW9uTGlzdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab8/PwaClient/Pages/Index.razor]
+[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab-project/PwaClient/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab8/PwaClient/Pages/Login.razor]
+[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab-project/PwaClient/Pages/Login.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvTG9naW4ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab8/PwaClient/Pages/Register.razor]
+[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab-project/PwaClient/Pages/Register.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUmVnaXN0ZXIucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab8/PwaClient/_Imports.razor]
-build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab-project/PwaClient/Shared/CultureSelector.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL0N1bHR1cmVTZWxlY3Rvci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab8/PwaClient/Shared/MainLayout.razor]
-build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL01haW5MYXlvdXQucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = b-b16knc3gfc
+[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab-project/PwaClient/Shared/Dialog.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL0RpYWxvZy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab8/PwaClient/Shared/NavMenu.razor]
+[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab-project/PwaClient/Shared/LoadingIndicator.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL0xvYWRpbmdJbmRpY2F0b3IucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab-project/PwaClient/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL01haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab-project/PwaClient/Shared/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL05hdk1lbnUucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = b-3r9r2jfjr4
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab-project/PwaClient/Shared/ResourceForm.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL1Jlc291cmNlRm9ybS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab-project/PwaClient/Shared/SubmitButton.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL1N1Ym1pdEJ1dHRvbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab-project/PwaClient/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 

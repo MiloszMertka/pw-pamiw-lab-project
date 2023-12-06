@@ -1,60 +1,64 @@
 @page "/cars"
+
 @inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+@inject IDialogService DialogService
+@inject IStringLocalizer<CarList> Loc
 
 @attribute [Authorize]
 
-<PageTitle>Cars</PageTitle>
-
-<h1>Cars</h1>
+<PageTitle>@Loc["Cars"]</PageTitle>
 
 @if (cars == null)
 {
-    <p><em>Loading...</em></p>
+    <LoadingIndicator />
 }
 else
 {
-    <a class="btn btn-success" href="/cars/create">Create car</a>
-
-    <div style="overflow-x: scroll;">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Color</th>
-                <th>Engine</th>
-                <th>Equipment Options</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var car in cars)
-                {
-                    <tr>
-                        <td>@car.Id</td>
-                        <td>@car.Name</td>
-                        <td>@car.Color</td>
-                        <td>@car.Engine.Name</td>
-                        <td>
-                            <ul>
-                                @foreach (var option in car.EquipmentOptions)
-                                {
-                                    <li>@option.Name</li>
-                                }
-                            </ul>
-                        </td>
-                        <td>
-                            <div class="d-flex">
-                                <a class="btn btn-primary me-3" href="/cars/edit/@car.Id">Edit</a>
-                                <button class="btn btn-danger"
-                                    @onclick="() => DeleteCar(car.Id.GetValueOrDefault())">Delete</button>
-                            </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+    <div class="d-flex justify-space-between align-center">
+    <MudText Typo="Typo.h3" Class="mb-4">@Loc["Cars"]</MudText>
+    <MudButton Color="Color.Primary" Variant="Variant.Filled" @onclick="CreateCar">@Loc["Create Car"]</MudButton>
+</div>
+    <MudDataGrid Items="@cars" ReadOnly="true">
+        <Columns>
+            <HierarchyColumn T="Car" />
+            <PropertyColumn Property="car => car.Name" Title="@(@Loc["Name"])" />
+            <PropertyColumn Property="car => car.Color" Title="@(@Loc["Color"])" />
+            <PropertyColumn Property="@(car => $"{car.Engine.Name} {car.Engine.HorsePower.ToString()} HP")"
+                Title="@(@Loc["Engine"])" />
+        </Columns>
+        <ChildRowContent>
+            <MudCard>
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h6">@context.Item.Name</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText>@Loc["Color"]: @context.Item.Color</MudText>
+                    <MudText>@Loc["Engine"]: @context.Item.Engine.Name @context.Item.Engine.HorsePower.ToString() HP
+                    </MudText>
+                    @if (context.Item.EquipmentOptions.Count > 0)
+                    {
+                        <MudText>@Loc["Equipment Options"]:</MudText>
+                        @foreach (var option in context.Item.EquipmentOptions)
+                        {
+                            <MudText>- @option.Name</MudText>
+                        }
+                    }
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton Variant="Variant.Text" Color="Color.Primary"
+                        @onclick="() => EditCar(context.Item.Id.GetValueOrDefault())">@Loc["Edit"]</MudButton>
+                    <MudButton Variant="Variant.Text" Color="Color.Error"
+                        @onclick="() => DeleteCar(context.Item.Id.GetValueOrDefault())">@Loc["Delete"]</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </ChildRowContent>
+        <PagerContent>
+            <MudDataGridPager T="Car" />
+        </PagerContent>
+    </MudDataGrid>
 }
 
 @code {
@@ -67,7 +71,33 @@ else
 
     private async Task DeleteCar(long id)
     {
+        var parameters = new DialogParameters<Dialog>();
+        parameters.Add(car => car.ContentText, Loc["Do you really want to delete this record? This process cannot be undone."]);
+        parameters.Add(car => car.ButtonText, Loc["Delete"]);
+        parameters.Add(car => car.Color, Color.Error);
+
+        var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+
+        var dialog = DialogService.Show<Dialog>(Loc["Delete Car"], parameters, options);
+        var result = await dialog.Result;
+
+        if (result.Canceled)
+        {
+            return;
+        }
+
+        cars = null;
         await HttpClient.DeleteAsync($"api/cars/{id}");
         cars = await HttpClient.GetFromJsonAsync<List<Car>>("api/cars");
+    }
+
+    private void EditCar(long id)
+    {
+        NavigationManager.NavigateTo($"/cars/edit/{id}");
+    }
+
+    private void CreateCar()
+    {
+        NavigationManager.NavigateTo("/cars/create");
     }
 }

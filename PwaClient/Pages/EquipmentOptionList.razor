@@ -1,47 +1,49 @@
 @page "/equipment-options"
+
 @inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+@inject IDialogService DialogService
+@inject IStringLocalizer<EquipmentOptionList> Loc
 
 @attribute [Authorize]
 
-<PageTitle>Equipment Options</PageTitle>
-
-<h1>Equipment Options</h1>
+<PageTitle>@Loc["Equipment Options"]</PageTitle>
 
 @if (equipmentOptions == null)
 {
-    <p><em>Loading...</em></p>
+    <LoadingIndicator />
 }
 else
 {
-    <a class="btn btn-success" href="/equipment-options/create">Create Equipment Option</a>
-
-    <div style="overflow-x: scroll;">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var equipmentOption in equipmentOptions)
-                {
-                    <tr>
-                        <td>@equipmentOption.Id</td>
-                        <td>@equipmentOption.Name</td>
-                        <td>
-                            <div class="d-flex">
-                                <a class="btn btn-primary me-3" href="/equipment-options/edit/@equipmentOption.Id">Edit</a>
-                                <button class="btn btn-danger"
-                                    @onclick="() => DeleteEquipmentOption(equipmentOption.Id.GetValueOrDefault())">Delete</button>
-                            </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+    <div class="d-flex justify-space-between align-center">
+    <MudText Typo="Typo.h3" Class="mb-4">@Loc["Equipment"]</MudText>
+    <MudButton Color="Color.Primary" Variant="Variant.Filled" @onclick="CreateEquipmentOption">@Loc["Create Equipment Option"]
+    </MudButton>
+</div>
+    <MudDataGrid Items="@equipmentOptions" ReadOnly="true">
+        <Columns>
+            <HierarchyColumn T="EquipmentOption" />
+            <PropertyColumn Property="equipmentOption => equipmentOption.Name" Title="@(@Loc["Name"])" />
+        </Columns>
+        <ChildRowContent>
+            <MudCard>
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h6">@context.Item.Name</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardActions>
+                    <MudButton Variant="Variant.Text" Color="Color.Primary"
+                        @onclick="() => EditEquipmentOption(context.Item.Id.GetValueOrDefault())">@Loc["Edit"]</MudButton>
+                    <MudButton Variant="Variant.Text" Color="Color.Error"
+                        @onclick="() => DeleteEquipmentOption(context.Item.Id.GetValueOrDefault())">@Loc["Delete"]</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </ChildRowContent>
+        <PagerContent>
+            <MudDataGridPager T="EquipmentOption" />
+        </PagerContent>
+    </MudDataGrid>
 }
 
 @code {
@@ -54,7 +56,33 @@ else
 
     private async Task DeleteEquipmentOption(long id)
     {
+        var parameters = new DialogParameters<Dialog>();
+        parameters.Add(equipmentOption => equipmentOption.ContentText, Loc["Do you really want to delete this record? This process cannot be undone."]);
+        parameters.Add(equipmentOption => equipmentOption.ButtonText, Loc["Delete"]);
+        parameters.Add(equipmentOption => equipmentOption.Color, Color.Error);
+
+        var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+
+        var dialog = DialogService.Show<Dialog>(Loc["Delete Equipment Option"], parameters, options);
+        var result = await dialog.Result;
+
+        if (result.Canceled)
+        {
+            return;
+        }
+
+        equipmentOptions = null;
         await HttpClient.DeleteAsync($"api/equipment-options/{id}");
         equipmentOptions = await HttpClient.GetFromJsonAsync<List<EquipmentOption>>("api/equipment-options");
+    }
+
+    private void EditEquipmentOption(long id)
+    {
+        NavigationManager.NavigateTo($"/equipment-options/edit/{id}");
+    }
+
+    private void CreateEquipmentOption()
+    {
+        NavigationManager.NavigateTo("/equipment-options/create");
     }
 }

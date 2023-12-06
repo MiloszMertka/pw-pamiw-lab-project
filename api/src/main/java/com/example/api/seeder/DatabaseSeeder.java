@@ -21,9 +21,9 @@ public class DatabaseSeeder implements CommandLineRunner {
     @Override
     public void run(String... args) {
         if (Arrays.asList(args).contains(SEED_FLAG)) {
-            engineSeeder.seed(10);
+            engineSeeder.seed(15);
             equipmentOptionSeeder.seed(5);
-            carSeeder.seed(10);
+            carSeeder.seed(15);
             userSeeder.seed(1);
         }
     }
