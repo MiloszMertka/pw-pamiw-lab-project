@@ -20,6 +20,50 @@ class _AppScaffoldState extends State<AppScaffold> {
         title: Text(widget.title),
       ),
       floatingActionButton: widget.floatingActionButton,
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            DrawerHeader(
+              child: Column(
+                children: [
+                  const Text(
+                    'DreamCars',
+                    style: TextStyle(
+                      fontSize: 24,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  TextButton(onPressed: () {}, child: const Text('Logout')),
+                ],
+              ),
+            ),
+            ListTile(
+              title: const Text('Cars'),
+              onTap: () {
+                Navigator.pushReplacementNamed(context, '/cars');
+              },
+            ),
+            ListTile(
+              title: const Text('Engines'),
+              onTap: () {
+                Navigator.pushReplacementNamed(context, '/engines');
+              },
+            ),
+            ListTile(
+              title: const Text('Equipment Options'),
+              onTap: () {
+                Navigator.pushReplacementNamed(context, '/equipment-options');
+              },
+            ),
+            ListTile(
+              title: const Text('Settings'),
+              onTap: () {
+                Navigator.pushReplacementNamed(context, '/settings');
+              },
+            ),
+          ],
+        ),
+      ),
       body: widget.body,
     );
   }
