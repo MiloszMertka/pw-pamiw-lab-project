@@ -4,6 +4,7 @@ import 'package:mobile_client/locator.dart';
 import 'package:mobile_client/models/equipment_option.dart';
 import 'package:mobile_client/services/equipment_option_service.dart';
 import 'package:mobile_client/shared/app_scaffold.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EquipmentOptionForm extends StatefulWidget {
   const EquipmentOptionForm({super.key, this.equipmentOption});
@@ -68,9 +69,10 @@ class _EquipmentOptionFormState extends State<EquipmentOptionForm> {
   @override
   Widget build(BuildContext context) {
     final inversePrimaryColor = Theme.of(context).colorScheme.inversePrimary;
+    final localizations = AppLocalizations.of(context)!;
 
     return AppScaffold(
-      title: "Equipment Option Form",
+      title: localizations.equipmentOptionForm,
       body: _isLoading
           ? SpinKitDualRing(color: inversePrimaryColor)
           : Form(
@@ -81,12 +83,12 @@ class _EquipmentOptionFormState extends State<EquipmentOptionForm> {
                   children: <Widget>[
                     TextFormField(
                       controller: _nameController,
-                      decoration: const InputDecoration(
-                        labelText: 'Name',
+                      decoration: InputDecoration(
+                        labelText: localizations.name,
                       ),
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return 'This field is required';
+                          return localizations.required;
                         }
 
                         return null;
@@ -95,7 +97,7 @@ class _EquipmentOptionFormState extends State<EquipmentOptionForm> {
                     const SizedBox(height: 32),
                     ElevatedButton(
                       onPressed: _submitForm,
-                      child: const Text('SAVE'),
+                      child: Text(localizations.save.toUpperCase()),
                     ),
                   ],
                 ),

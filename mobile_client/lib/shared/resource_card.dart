@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_client/shared/delete_dialog.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ResourceCard extends StatelessWidget {
   final String title;
@@ -20,6 +21,7 @@ class ResourceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final localizations = AppLocalizations.of(context)!;
 
     return Card(
       child: Column(
@@ -32,7 +34,7 @@ class ResourceCard extends StatelessWidget {
             children: <Widget>[
               TextButton(
                 onPressed: onEdit,
-                child: const Text('EDIT'),
+                child: Text(localizations.edit.toUpperCase()),
               ),
               const SizedBox(width: 8),
               TextButton(
@@ -44,7 +46,7 @@ class ResourceCard extends StatelessWidget {
 
                   onDelete();
                 },
-                child: const Text('DELETE'),
+                child: Text(localizations.delete.toUpperCase()),
               )
             ],
           ),

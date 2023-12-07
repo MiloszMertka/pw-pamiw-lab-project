@@ -5,6 +5,7 @@ import 'package:mobile_client/models/equipment_option.dart';
 import 'package:mobile_client/services/equipment_option_service.dart';
 import 'package:mobile_client/shared/app_scaffold.dart';
 import 'package:mobile_client/shared/resource_card.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EquipmentOptionList extends StatefulWidget {
   const EquipmentOptionList({super.key});
@@ -52,9 +53,10 @@ class _EquipmentOptionListState extends State<EquipmentOptionList> {
   @override
   Widget build(BuildContext context) {
     final inversePrimaryColor = Theme.of(context).colorScheme.inversePrimary;
+    final localizations = AppLocalizations.of(context)!;
 
     return AppScaffold(
-      title: 'Equipment Options',
+      title: localizations.equipmentOptions,
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
@@ -69,10 +71,10 @@ class _EquipmentOptionListState extends State<EquipmentOptionList> {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 8),
                   child: ResourceCard(
-                    title: 'Name: ${_equipmentOptions[index].name}',
+                    title: '${localizations.name}: ${_equipmentOptions[index].name}',
                     onEdit: () => _navigateToEquipmentOptionForm(_equipmentOptions[index]),
                     onDelete: () => _deleteEquipmentOption(_equipmentOptions[index]),
-                    deleteDialogTitle: 'Delete Equipment Option',
+                    deleteDialogTitle: localizations.deleteEquipmentOption,
                     children: const <Widget>[],
                   ),
                 );

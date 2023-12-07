@@ -5,6 +5,7 @@ import 'package:mobile_client/models/car.dart';
 import 'package:mobile_client/services/car_service.dart';
 import 'package:mobile_client/shared/app_scaffold.dart';
 import 'package:mobile_client/shared/resource_card.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CarList extends StatefulWidget {
   const CarList({super.key});
@@ -52,9 +53,10 @@ class _CarListState extends State<CarList> {
   @override
   Widget build(BuildContext context) {
     final inversePrimaryColor = Theme.of(context).colorScheme.inversePrimary;
+    final localizations = AppLocalizations.of(context)!;
 
     return AppScaffold(
-      title: 'Cars',
+      title: localizations.cars,
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
@@ -69,14 +71,14 @@ class _CarListState extends State<CarList> {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 8),
                   child: ResourceCard(
-                    title: 'Name: ${_cars[index].name}',
+                    title: '${localizations.name}: ${_cars[index].name}',
                     onEdit: () => _navigateToCarForm(_cars[index]),
                     onDelete: () => _deleteCar(_cars[index]),
-                    deleteDialogTitle: 'Delete Car',
+                    deleteDialogTitle: localizations.deleteCar,
                     children: <Widget>[
-                      Text('Color: ${_cars[index].color}'),
-                      Text('Engine: ${_cars[index].engine.name} ${_cars[index].engine.horsePower} HP'),
-                      const Text('Equipment Options:'),
+                      Text('${localizations.color}: ${_cars[index].color}'),
+                      Text('${localizations.engine}: ${_cars[index].engine.name} ${_cars[index].engine.horsePower} HP'),
+                      Text('${localizations.equipmentOptions}:'),
                       ListBody(
                         children: _cars[index].equipmentOptions.map((equipmentOption) {
                           return Text('- ${equipmentOption.name}');

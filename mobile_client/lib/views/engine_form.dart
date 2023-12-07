@@ -4,6 +4,7 @@ import 'package:mobile_client/locator.dart';
 import 'package:mobile_client/models/engine.dart';
 import 'package:mobile_client/services/engine_service.dart';
 import 'package:mobile_client/shared/app_scaffold.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EngineForm extends StatefulWidget {
   const EngineForm({super.key, this.engine});
@@ -71,9 +72,10 @@ class _EngineFormState extends State<EngineForm> {
   @override
   Widget build(BuildContext context) {
     final inversePrimaryColor = Theme.of(context).colorScheme.inversePrimary;
+    final localizations = AppLocalizations.of(context)!;
 
     return AppScaffold(
-      title: "Engine Form",
+      title: localizations.engineForm,
       body: _isLoading
           ? SpinKitDualRing(color: inversePrimaryColor)
           : Form(
@@ -84,12 +86,12 @@ class _EngineFormState extends State<EngineForm> {
                   children: <Widget>[
                     TextFormField(
                       controller: _nameController,
-                      decoration: const InputDecoration(
-                        labelText: 'Name',
+                      decoration: InputDecoration(
+                        labelText: localizations.name,
                       ),
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return 'This field is required';
+                          return localizations.required;
                         }
 
                         return null;
@@ -97,21 +99,21 @@ class _EngineFormState extends State<EngineForm> {
                     ),
                     TextFormField(
                       controller: _horsePowerController,
-                      decoration: const InputDecoration(
-                        labelText: 'Horse Power',
+                      decoration: InputDecoration(
+                        labelText: localizations.horsePower,
                       ),
                       keyboardType: TextInputType.number,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return 'This field is required';
+                          return localizations.required;
                         }
 
                         if (int.tryParse(value) == null) {
-                          return 'Value must be an integer number';
+                          return localizations.integer;
                         }
 
                         if (int.parse(value) <= 0) {
-                          return 'Value must be greater than 0';
+                          return localizations.positive;
                         }
 
                         return null;
@@ -120,7 +122,7 @@ class _EngineFormState extends State<EngineForm> {
                     const SizedBox(height: 32),
                     ElevatedButton(
                       onPressed: _submitForm,
-                      child: const Text('SAVE'),
+                      child: Text(localizations.save.toUpperCase()),
                     ),
                   ],
                 ),

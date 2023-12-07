@@ -1,16 +1,18 @@
-import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_client/app_state.dart';
 import 'package:mobile_client/shared/app_scaffold.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Settings extends StatelessWidget {
   const Settings({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
     return AppScaffold(
-      title: 'Settings',
+      title: localizations.settings,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 32),
         child: Column(
@@ -22,7 +24,7 @@ class Settings extends StatelessWidget {
                 children: <Widget>[
                   Row(
                     children: [
-                      const Text('Dark Mode'),
+                      Text(localizations.darkMode),
                       const Spacer(),
                       Switch(
                         value: appState.isDarkMode,
@@ -32,7 +34,7 @@ class Settings extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      const Text('Language'),
+                      Text(localizations.language),
                       const Spacer(),
                       DropdownButton<Locale>(
                         value: appState.locale,

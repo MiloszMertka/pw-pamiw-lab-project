@@ -1,0 +1,27 @@
+{
+    "logout": "Wyloguj",
+    "cars": "Samochody",
+    "engines": "Silniki",
+    "equipmentOptions": "Opcje Wyposażenia",
+    "settings": "Ustawienia",
+    "delete": "Usuń",
+    "cancel": "Anuluj",
+    "edit": "Edytuj",
+    "darkMode": "Tryb Ciemny",
+    "language": "Język",
+    "name": "Nazwa",
+    "color": "Kolor",
+    "engine": "Silnik",
+    "deleteCar": "Usuń Samochód",
+    "deleteEngine": "Usuń Silnik",
+    "deleteEquipmentOption": "Usuń Opcję Wyposażenia",
+    "horsePower": "Moc",
+    "carForm": "Formularz Samochodu",
+    "engineForm": "Formularz Silnika",
+    "equipmentOptionForm": "Formularz Opcji Wyposażenia",
+    "save": "Zapisz",
+    "required": "To pole jest wymagane",
+    "integer": "Wartość musi być liczbą całkowitą",
+    "positive": "Wartość musi być liczbą dodatnią"
+  }
+  

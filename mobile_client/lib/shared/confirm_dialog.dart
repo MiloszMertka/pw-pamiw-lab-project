@@ -4,8 +4,8 @@ Future<bool> showConfirmDialog({
   required BuildContext context,
   required String title,
   required String message,
-  String cancelButtonLabel = 'CANCEL',
-  String confirmButtonLabel = 'CONFIRM',
+  String? cancelButtonLabel,
+  String? confirmButtonLabel,
   bool useDangerColor = false,
 }) async {
   return await showDialog<bool>(
@@ -26,16 +26,16 @@ Future<bool> showConfirmDialog({
 class ConfirmDialog extends StatelessWidget {
   final String title;
   final String message;
-  final String cancelButtonLabel;
-  final String confirmButtonLabel;
+  final String? cancelButtonLabel;
+  final String? confirmButtonLabel;
   final bool useDangerColor;
 
   const ConfirmDialog({
     Key? key,
     required this.title,
     required this.message,
-    this.cancelButtonLabel = 'CANCEL',
-    this.confirmButtonLabel = 'CONFIRM',
+    this.cancelButtonLabel,
+    this.confirmButtonLabel,
     this.useDangerColor = false,
   }) : super(key: key);
 
@@ -49,14 +49,14 @@ class ConfirmDialog extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context, false),
-          child: Text(cancelButtonLabel),
+          child: Text(cancelButtonLabel ?? 'CANCEL'),
         ),
         TextButton(
           onPressed: () => Navigator.pop(context, true),
           style: TextButton.styleFrom(
             foregroundColor: useDangerColor ? colorScheme.error : colorScheme.primary,
           ),
-          child: Text(confirmButtonLabel),
+          child: Text(confirmButtonLabel ?? 'CONFIRM'),
         ),
       ],
     );

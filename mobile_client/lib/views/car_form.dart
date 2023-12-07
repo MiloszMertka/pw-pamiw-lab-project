@@ -9,6 +9,7 @@ import 'package:mobile_client/services/car_service.dart';
 import 'package:mobile_client/services/engine_service.dart';
 import 'package:mobile_client/services/equipment_option_service.dart';
 import 'package:mobile_client/shared/app_scaffold.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CarForm extends StatefulWidget {
   const CarForm({super.key, this.car});
@@ -125,9 +126,10 @@ class _CarFormState extends State<CarForm> {
   @override
   Widget build(BuildContext context) {
     final inversePrimaryColor = Theme.of(context).colorScheme.inversePrimary;
+    final localizations = AppLocalizations.of(context)!;
 
     return AppScaffold(
-      title: "Car Form",
+      title: localizations.carForm,
       body: _isLoading
           ? SpinKitDualRing(color: inversePrimaryColor)
           : Form(
@@ -138,12 +140,12 @@ class _CarFormState extends State<CarForm> {
                   children: <Widget>[
                     TextFormField(
                       controller: _nameController,
-                      decoration: const InputDecoration(
-                        labelText: 'Name',
+                      decoration: InputDecoration(
+                        labelText: localizations.name,
                       ),
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return 'This field is required';
+                          return localizations.required;
                         }
 
                         return null;
@@ -151,12 +153,12 @@ class _CarFormState extends State<CarForm> {
                     ),
                     TextFormField(
                       controller: _colorController,
-                      decoration: const InputDecoration(
-                        labelText: 'Color',
+                      decoration: InputDecoration(
+                        labelText: localizations.color,
                       ),
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return 'This field is required';
+                          return localizations.required;
                         }
 
                         return null;
@@ -168,7 +170,7 @@ class _CarFormState extends State<CarForm> {
                       dropDownList: _engines.map((engine) => DropDownValueModel(name: engine.name, value: engine)).toList(),
                       validator: (value) {
                         if (value == null) {
-                          return 'This field is required';
+                          return localizations.required;
                         }
 
                         return null;
@@ -183,7 +185,7 @@ class _CarFormState extends State<CarForm> {
                     const SizedBox(height: 32),
                     ElevatedButton(
                       onPressed: _submitForm,
-                      child: const Text('SAVE'),
+                      child: Text(localizations.save.toUpperCase()),
                     ),
                   ],
                 ),

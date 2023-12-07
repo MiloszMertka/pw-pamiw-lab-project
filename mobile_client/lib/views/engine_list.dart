@@ -5,6 +5,7 @@ import 'package:mobile_client/models/engine.dart';
 import 'package:mobile_client/services/engine_service.dart';
 import 'package:mobile_client/shared/app_scaffold.dart';
 import 'package:mobile_client/shared/resource_card.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EngineList extends StatefulWidget {
   const EngineList({super.key});
@@ -52,9 +53,10 @@ class _EngineListState extends State<EngineList> {
   @override
   Widget build(BuildContext context) {
     final inversePrimaryColor = Theme.of(context).colorScheme.inversePrimary;
+    final localizations = AppLocalizations.of(context)!;
 
     return AppScaffold(
-      title: 'Engines',
+      title: localizations.engines,
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
@@ -69,12 +71,12 @@ class _EngineListState extends State<EngineList> {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 8),
                   child: ResourceCard(
-                    title: 'Name: ${_engines[index].name}',
+                    title: '${localizations.name}: ${_engines[index].name}',
                     onEdit: () => _navigateToEngineForm(_engines[index]),
                     onDelete: () => _deleteEngine(_engines[index]),
-                    deleteDialogTitle: 'Delete Engine',
+                    deleteDialogTitle: localizations.deleteEngine,
                     children: <Widget>[
-                      Text('Horse Power: ${_engines[index].horsePower} HP'),
+                      Text('${localizations.horsePower}: ${_engines[index].horsePower} HP'),
                     ],
                   ),
                 );
