@@ -24,9 +24,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Mobile Client',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromRGBO(89, 74, 226, 1)),
         useMaterial3: true,
       ),
+      darkTheme: ThemeData.dark(useMaterial3: true),
+      themeMode: ThemeMode.light,
       routes: {
         '/': (context) => const Home(),
         '/cars': (context) => const CarList(),

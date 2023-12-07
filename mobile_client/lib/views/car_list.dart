@@ -3,6 +3,7 @@ import 'package:mobile_client/locator.dart';
 import 'package:mobile_client/models/car.dart';
 import 'package:mobile_client/services/car_service.dart';
 import 'package:mobile_client/shared/app_scaffold.dart';
+import 'package:mobile_client/shared/resource_card.dart';
 
 class CarList extends StatefulWidget {
   const CarList({super.key});
@@ -54,41 +55,21 @@ class _CarListState extends State<CarList> {
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 8),
-            child: Card(
-              child: Column(
-                children: <Widget>[
-                  ListTile(
-                    title: Text('Name: ${_cars[index].name}'),
-                    subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-                      Text('Color: ${_cars[index].color}'),
-                      Text('Engine: ${_cars[index].engine.name} ${_cars[index].engine.horsePower} HP'),
-                      const Text('Equipment Options:'),
-                      ListBody(
-                        children: _cars[index].equipmentOptions.map((equipmentOption) {
-                          return Text('- ${equipmentOption.name}');
-                        }).toList(),
-                      ),
-                    ]),
-                  ),
-                  Row(
-                    children: <Widget>[
-                      TextButton(
-                        child: const Text('EDIT'),
-                        onPressed: () {
-                          _navigateToCarForm(_cars[index]);
-                        },
-                      ),
-                      const SizedBox(width: 8),
-                      TextButton(
-                        child: const Text('DELETE'),
-                        onPressed: () {
-                          _deleteCar(_cars[index]);
-                        },
-                      )
-                    ],
-                  ),
-                ],
-              ),
+            child: ResourceCard(
+              title: 'Name: ${_cars[index].name}',
+              onEdit: () => _navigateToCarForm(_cars[index]),
+              onDelete: () => _deleteCar(_cars[index]),
+              deleteDialogTitle: 'Delete Car',
+              children: <Widget>[
+                Text('Color: ${_cars[index].color}'),
+                Text('Engine: ${_cars[index].engine.name} ${_cars[index].engine.horsePower} HP'),
+                const Text('Equipment Options:'),
+                ListBody(
+                  children: _cars[index].equipmentOptions.map((equipmentOption) {
+                    return Text('- ${equipmentOption.name}');
+                  }).toList(),
+                ),
+              ],
             ),
           );
         },

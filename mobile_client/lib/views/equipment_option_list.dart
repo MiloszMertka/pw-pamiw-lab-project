@@ -3,6 +3,7 @@ import 'package:mobile_client/locator.dart';
 import 'package:mobile_client/models/equipment_option.dart';
 import 'package:mobile_client/services/equipment_option_service.dart';
 import 'package:mobile_client/shared/app_scaffold.dart';
+import 'package:mobile_client/shared/resource_card.dart';
 
 class EquipmentOptionList extends StatefulWidget {
   const EquipmentOptionList({super.key});
@@ -54,31 +55,12 @@ class _EquipmentOptionListState extends State<EquipmentOptionList> {
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 8),
-            child: Card(
-              child: Column(
-                children: <Widget>[
-                  ListTile(
-                    title: Text('Name: ${_equipmentOptions[index].name}'),
-                  ),
-                  Row(
-                    children: <Widget>[
-                      TextButton(
-                        child: const Text('EDIT'),
-                        onPressed: () {
-                          _navigateToEquipmentOptionForm(_equipmentOptions[index]);
-                        },
-                      ),
-                      const SizedBox(width: 8),
-                      TextButton(
-                        child: const Text('DELETE'),
-                        onPressed: () {
-                          _deleteEquipmentOption(_equipmentOptions[index]);
-                        },
-                      )
-                    ],
-                  ),
-                ],
-              ),
+            child: ResourceCard(
+              title: 'Name: ${_equipmentOptions[index].name}',
+              onEdit: () => _navigateToEquipmentOptionForm(_equipmentOptions[index]),
+              onDelete: () => _deleteEquipmentOption(_equipmentOptions[index]),
+              deleteDialogTitle: 'Delete Equipment Option',
+              children: const <Widget>[],
             ),
           );
         },

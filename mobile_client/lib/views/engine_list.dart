@@ -3,6 +3,7 @@ import 'package:mobile_client/locator.dart';
 import 'package:mobile_client/models/engine.dart';
 import 'package:mobile_client/services/engine_service.dart';
 import 'package:mobile_client/shared/app_scaffold.dart';
+import 'package:mobile_client/shared/resource_card.dart';
 
 class EngineList extends StatefulWidget {
   const EngineList({super.key});
@@ -54,32 +55,14 @@ class _EngineListState extends State<EngineList> {
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 8),
-            child: Card(
-              child: Column(
-                children: <Widget>[
-                  ListTile(
-                    title: Text('Name: ${_engines[index].name}'),
-                    subtitle: Text('Horse Power: ${_engines[index].horsePower} HP'),
-                  ),
-                  Row(
-                    children: <Widget>[
-                      TextButton(
-                        child: const Text('EDIT'),
-                        onPressed: () {
-                          _navigateToEngineForm(_engines[index]);
-                        },
-                      ),
-                      const SizedBox(width: 8),
-                      TextButton(
-                        child: const Text('DELETE'),
-                        onPressed: () {
-                          _deleteEngine(_engines[index]);
-                        },
-                      )
-                    ],
-                  ),
-                ],
-              ),
+            child: ResourceCard(
+              title: 'Name: ${_engines[index].name}',
+              onEdit: () => _navigateToEngineForm(_engines[index]),
+              onDelete: () => _deleteEngine(_engines[index]),
+              deleteDialogTitle: 'Delete Engine',
+              children: <Widget>[
+                Text('Horse Power: ${_engines[index].horsePower} HP'),
+              ],
             ),
           );
         },
