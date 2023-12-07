@@ -12,7 +12,8 @@ import 'package:mobile_client/views/engine_form.dart';
 import 'package:mobile_client/views/engine_list.dart';
 import 'package:mobile_client/views/equipment_option_form.dart';
 import 'package:mobile_client/views/equipment_option_list.dart';
-import 'package:mobile_client/views/home.dart';
+import 'package:mobile_client/views/login.dart';
+import 'package:mobile_client/views/register.dart';
 import 'package:mobile_client/views/settings.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -60,7 +61,7 @@ class MyApp extends StatelessWidget {
         },
         locale: appState.locale,
         routes: {
-          '/': (context) => const Home(),
+          '/': (context) => const Login(),
           '/cars': (context) => const CarList(),
           '/car-form': (context) {
             var car = ModalRoute.of(context)!.settings.arguments as Car?;
@@ -77,6 +78,8 @@ class MyApp extends StatelessWidget {
             return EquipmentOptionForm(equipmentOption: equipmentOption);
           },
           '/settings': (context) => const Settings(),
+          '/login': (context) => const Login(),
+          '/register': (context) => const Register(),
         },
       ),
     );

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:mobile_client/app_state.dart';
 import 'package:mobile_client/constants.dart';
 import 'package:mobile_client/models/equipment_option.dart';
 import 'package:http/http.dart' as http;
@@ -9,7 +10,9 @@ class EquipmentOptionService {
 
   Future<List<EquipmentOption>> fetchEquipmentOptions() async {
     final uri = Uri.parse(equipmentOptionsEndpoint);
-    final response = await http.get(uri);
+    final response = await http.get(uri, headers: {
+      'Authorization': 'Bearer ${AppState.jwt!.token}',
+    });
     return equipmentOptionsFromJson(response.body);
   }
 
@@ -17,6 +20,7 @@ class EquipmentOptionService {
     final uri = Uri.parse(equipmentOptionsEndpoint);
     await http.post(uri, body: json.encode(equipmentOption.toJson()), headers: {
       'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${AppState.jwt!.token}',
     });
   }
 
@@ -24,11 +28,14 @@ class EquipmentOptionService {
     final uri = Uri.parse('$equipmentOptionsEndpoint/$id');
     await http.put(uri, body: json.encode(equipmentOption.toJson()), headers: {
       'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${AppState.jwt!.token}',
     });
   }
 
   Future<void> deleteEquipmentOption(EquipmentOption equipmentOption) async {
     final uri = Uri.parse('$equipmentOptionsEndpoint/${equipmentOption.id}');
-    await http.delete(uri);
+    await http.delete(uri, headers: {
+      'Authorization': 'Bearer ${AppState.jwt!.token}',
+    });
   }
 }

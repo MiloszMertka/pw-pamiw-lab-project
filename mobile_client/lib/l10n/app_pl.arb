@@ -1,5 +1,7 @@
 {
     "logout": "Wyloguj",
+    "login": "Zaloguj",
+    "register": "Zarejestruj",
     "cars": "Samochody",
     "engines": "Silniki",
     "equipmentOptions": "Opcje Wyposażenia",
@@ -22,6 +24,9 @@
     "save": "Zapisz",
     "required": "To pole jest wymagane",
     "integer": "Wartość musi być liczbą całkowitą",
-    "positive": "Wartość musi być liczbą dodatnią"
+    "positive": "Wartość musi być liczbą dodatnią",
+    "passwordConfirmation": "Potwierdzenie Hasła",
+    "passwordsDoNotMatch": "Hasła nie są takie same",
+    "invalidCredentials": "Nieprawidłowe dane logowania"
   }
   

@@ -1,5 +1,7 @@
 {
     "logout": "Logout",
+    "login": "Login",
+    "register": "Register",
     "cars": "Cars",
     "engines": "Engines",
     "equipmentOptions": "Equipment Options",
@@ -22,5 +24,10 @@
     "save": "Save",
     "required": "This field is required",
     "integer": "Value must be an integer number",
-    "positive": "Value must be a positive number"
+    "positive": "Value must be a positive number",
+    "username": "Username",
+    "password": "Password",
+    "passwordConfirmation": "Password Confirmation",
+    "passwordsDoNotMatch": "Passwords do not match",
+    "invalidCredentials": "Invalid Credentials"
 }

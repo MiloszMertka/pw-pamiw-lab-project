@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:mobile_client/app_state.dart';
+import 'package:provider/provider.dart';
 
 class AppScaffold extends StatefulWidget {
   const AppScaffold({super.key, required this.title, required this.body, this.floatingActionButton});
@@ -36,7 +38,14 @@ class _AppScaffoldState extends State<AppScaffold> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  TextButton(onPressed: () {}, child: Text(localizations.logout)),
+                  Consumer<AppState>(builder: (context, appState, child) {
+                    return TextButton(
+                        onPressed: () {
+                          appState.setJwt(null);
+                          Navigator.pushReplacementNamed(context, '/login');
+                        },
+                        child: Text(localizations.logout));
+                  }),
                 ],
               ),
             ),
