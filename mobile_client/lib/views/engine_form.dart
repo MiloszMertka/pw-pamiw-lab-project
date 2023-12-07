@@ -37,6 +37,10 @@ class _EngineFormState extends State<EngineForm> {
   }
 
   Future<void> _submitForm() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+
     setState(() {
       _isLoading = true;
     });
@@ -83,6 +87,13 @@ class _EngineFormState extends State<EngineForm> {
                       decoration: const InputDecoration(
                         labelText: 'Name',
                       ),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'This field is required';
+                        }
+
+                        return null;
+                      },
                     ),
                     TextFormField(
                       controller: _horsePowerController,
@@ -90,6 +101,21 @@ class _EngineFormState extends State<EngineForm> {
                         labelText: 'Horse Power',
                       ),
                       keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'This field is required';
+                        }
+
+                        if (int.tryParse(value) == null) {
+                          return 'Value must be an integer number';
+                        }
+
+                        if (int.parse(value) <= 0) {
+                          return 'Value must be greater than 0';
+                        }
+
+                        return null;
+                      },
                     ),
                     const SizedBox(height: 32),
                     ElevatedButton(

@@ -34,6 +34,10 @@ class _EquipmentOptionFormState extends State<EquipmentOptionForm> {
   }
 
   Future<void> _submitForm() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+
     setState(() {
       _isLoading = true;
     });
@@ -80,6 +84,13 @@ class _EquipmentOptionFormState extends State<EquipmentOptionForm> {
                       decoration: const InputDecoration(
                         labelText: 'Name',
                       ),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'This field is required';
+                        }
+
+                        return null;
+                      },
                     ),
                     const SizedBox(height: 32),
                     ElevatedButton(

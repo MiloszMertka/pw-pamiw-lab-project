@@ -83,6 +83,10 @@ class _CarFormState extends State<CarForm> {
   }
 
   Future<void> _submitForm() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+
     setState(() {
       _isLoading = true;
     });
@@ -137,17 +141,39 @@ class _CarFormState extends State<CarForm> {
                       decoration: const InputDecoration(
                         labelText: 'Name',
                       ),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'This field is required';
+                        }
+
+                        return null;
+                      },
                     ),
                     TextFormField(
                       controller: _colorController,
                       decoration: const InputDecoration(
                         labelText: 'Color',
                       ),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'This field is required';
+                        }
+
+                        return null;
+                      },
                     ),
                     DropDownTextField(
-                        controller: _engineController,
-                        dropDownItemCount: _engines.length,
-                        dropDownList: _engines.map((engine) => DropDownValueModel(name: engine.name, value: engine)).toList()),
+                      controller: _engineController,
+                      dropDownItemCount: _engines.length,
+                      dropDownList: _engines.map((engine) => DropDownValueModel(name: engine.name, value: engine)).toList(),
+                      validator: (value) {
+                        if (value == null) {
+                          return 'This field is required';
+                        }
+
+                        return null;
+                      },
+                    ),
                     DropDownTextField.multiSelection(
                       controller: _equipmentOptionsController,
                       displayCompleteItem: true,
