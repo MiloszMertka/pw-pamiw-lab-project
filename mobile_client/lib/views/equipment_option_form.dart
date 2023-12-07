@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:mobile_client/constants.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mobile_client/locator.dart';
 import 'package:mobile_client/models/equipment_option.dart';
 import 'package:mobile_client/services/equipment_option_service.dart';
@@ -20,6 +17,7 @@ class EquipmentOptionForm extends StatefulWidget {
 class _EquipmentOptionFormState extends State<EquipmentOptionForm> {
   final _equipmentOptionService = locator<EquipmentOptionService>();
 
+  bool _isLoading = false;
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
 
@@ -36,11 +34,19 @@ class _EquipmentOptionFormState extends State<EquipmentOptionForm> {
   }
 
   Future<void> _submitForm() async {
+    setState(() {
+      _isLoading = true;
+    });
+
     if (widget.equipmentOption == null) {
-      _createEquipmentOption();
+      await _createEquipmentOption();
     } else {
-      _updateEquipmentOption();
+      await _updateEquipmentOption();
     }
+
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   Future<void> _createEquipmentOption() async {
@@ -57,29 +63,33 @@ class _EquipmentOptionFormState extends State<EquipmentOptionForm> {
 
   @override
   Widget build(BuildContext context) {
+    final inversePrimaryColor = Theme.of(context).colorScheme.inversePrimary;
+
     return AppScaffold(
       title: "Equipment Option Form",
-      body: Form(
-        key: _formKey,
-        child: Padding(
-          padding: const EdgeInsets.all(32),
-          child: Column(
-            children: <Widget>[
-              TextFormField(
-                controller: _nameController,
-                decoration: const InputDecoration(
-                  labelText: 'Name',
+      body: _isLoading
+          ? SpinKitDualRing(color: inversePrimaryColor)
+          : Form(
+              key: _formKey,
+              child: Padding(
+                padding: const EdgeInsets.all(32),
+                child: Column(
+                  children: <Widget>[
+                    TextFormField(
+                      controller: _nameController,
+                      decoration: const InputDecoration(
+                        labelText: 'Name',
+                      ),
+                    ),
+                    const SizedBox(height: 32),
+                    ElevatedButton(
+                      onPressed: _submitForm,
+                      child: const Text('SAVE'),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 32),
-              ElevatedButton(
-                onPressed: _submitForm,
-                child: const Text('SAVE'),
-              ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }

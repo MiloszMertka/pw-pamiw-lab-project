@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_client/constants.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mobile_client/locator.dart';
 import 'package:mobile_client/models/engine.dart';
 import 'package:mobile_client/services/engine_service.dart';
@@ -17,6 +17,7 @@ class EngineForm extends StatefulWidget {
 class _EngineFormState extends State<EngineForm> {
   final _engineService = locator<EngineService>();
 
+  bool _isLoading = false;
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _horsePowerController = TextEditingController();
@@ -36,11 +37,19 @@ class _EngineFormState extends State<EngineForm> {
   }
 
   Future<void> _submitForm() async {
+    setState(() {
+      _isLoading = true;
+    });
+
     if (widget.engine == null) {
-      _createEngine();
+      await _createEngine();
     } else {
-      _updateEngine();
+      await _updateEngine();
     }
+
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   Future<void> _createEngine() async {
@@ -57,36 +66,40 @@ class _EngineFormState extends State<EngineForm> {
 
   @override
   Widget build(BuildContext context) {
+    final inversePrimaryColor = Theme.of(context).colorScheme.inversePrimary;
+
     return AppScaffold(
       title: "Engine Form",
-      body: Form(
-        key: _formKey,
-        child: Padding(
-          padding: const EdgeInsets.all(32),
-          child: Column(
-            children: <Widget>[
-              TextFormField(
-                controller: _nameController,
-                decoration: const InputDecoration(
-                  labelText: 'Name',
+      body: _isLoading
+          ? SpinKitDualRing(color: inversePrimaryColor)
+          : Form(
+              key: _formKey,
+              child: Padding(
+                padding: const EdgeInsets.all(32),
+                child: Column(
+                  children: <Widget>[
+                    TextFormField(
+                      controller: _nameController,
+                      decoration: const InputDecoration(
+                        labelText: 'Name',
+                      ),
+                    ),
+                    TextFormField(
+                      controller: _horsePowerController,
+                      decoration: const InputDecoration(
+                        labelText: 'Horse Power',
+                      ),
+                      keyboardType: TextInputType.number,
+                    ),
+                    const SizedBox(height: 32),
+                    ElevatedButton(
+                      onPressed: _submitForm,
+                      child: const Text('SAVE'),
+                    ),
+                  ],
                 ),
               ),
-              TextFormField(
-                controller: _horsePowerController,
-                decoration: const InputDecoration(
-                  labelText: 'Horse Power',
-                ),
-                keyboardType: TextInputType.number,
-              ),
-              const SizedBox(height: 32),
-              ElevatedButton(
-                onPressed: _submitForm,
-                child: const Text('SAVE'),
-              ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }

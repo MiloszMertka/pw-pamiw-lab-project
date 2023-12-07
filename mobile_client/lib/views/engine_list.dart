@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mobile_client/locator.dart';
 import 'package:mobile_client/models/engine.dart';
 import 'package:mobile_client/services/engine_service.dart';
@@ -16,15 +17,23 @@ class _EngineListState extends State<EngineList> {
   final _engineService = locator<EngineService>();
 
   List<Engine> _engines = [];
+  bool _isLoading = false;
 
   Future<void> _fetchEngines() async {
+    setState(() {
+      _isLoading = true;
+    });
     final fetchedEngines = await _engineService.fetchEngines();
     setState(() {
       _engines = fetchedEngines;
+      _isLoading = false;
     });
   }
 
   Future<void> _deleteEngine(Engine engine) async {
+    setState(() {
+      _isLoading = true;
+    });
     await _engineService.deleteEngine(engine);
     await _fetchEngines();
   }
@@ -42,6 +51,8 @@ class _EngineListState extends State<EngineList> {
 
   @override
   Widget build(BuildContext context) {
+    final inversePrimaryColor = Theme.of(context).colorScheme.inversePrimary;
+
     return AppScaffold(
       title: 'Engines',
       floatingActionButton: FloatingActionButton(
@@ -50,23 +61,25 @@ class _EngineListState extends State<EngineList> {
           _navigateToEngineForm(null);
         },
       ),
-      body: ListView.builder(
-        itemCount: _engines.length,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 8),
-            child: ResourceCard(
-              title: 'Name: ${_engines[index].name}',
-              onEdit: () => _navigateToEngineForm(_engines[index]),
-              onDelete: () => _deleteEngine(_engines[index]),
-              deleteDialogTitle: 'Delete Engine',
-              children: <Widget>[
-                Text('Horse Power: ${_engines[index].horsePower} HP'),
-              ],
+      body: _isLoading
+          ? SpinKitDualRing(color: inversePrimaryColor)
+          : ListView.builder(
+              itemCount: _engines.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 8),
+                  child: ResourceCard(
+                    title: 'Name: ${_engines[index].name}',
+                    onEdit: () => _navigateToEngineForm(_engines[index]),
+                    onDelete: () => _deleteEngine(_engines[index]),
+                    deleteDialogTitle: 'Delete Engine',
+                    children: <Widget>[
+                      Text('Horse Power: ${_engines[index].horsePower} HP'),
+                    ],
+                  ),
+                );
+              },
             ),
-          );
-        },
-      ),
     );
   }
 }

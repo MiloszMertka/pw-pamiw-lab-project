@@ -1,5 +1,6 @@
 import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mobile_client/locator.dart';
 import 'package:mobile_client/models/car.dart';
 import 'package:mobile_client/models/engine.dart';
@@ -25,6 +26,7 @@ class _CarFormState extends State<CarForm> {
 
   List<Engine> _engines = [];
   List<EquipmentOption> _equipmentOptions = [];
+  bool _isLoading = false;
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _colorController = TextEditingController();
@@ -41,8 +43,7 @@ class _CarFormState extends State<CarForm> {
       _engineController.dropDownValue = DropDownValueModel(name: car.engine.name, value: car.engine);
       _equipmentOptionsController.dropDownValueList = car.equipmentOptions.map((e) => DropDownValueModel(name: e.name, value: e)).toList();
     }
-    _fetchEngines();
-    _fetchEquipmentOptions();
+    _fetchData();
   }
 
   @override
@@ -52,6 +53,19 @@ class _CarFormState extends State<CarForm> {
     _engineController.dispose();
     _equipmentOptionsController.dispose();
     super.dispose();
+  }
+
+  Future<void> _fetchData() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    await _fetchEngines();
+    await _fetchEquipmentOptions();
+
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   Future<void> _fetchEngines() async {
@@ -69,11 +83,19 @@ class _CarFormState extends State<CarForm> {
   }
 
   Future<void> _submitForm() async {
+    setState(() {
+      _isLoading = true;
+    });
+
     if (widget.car == null) {
-      _createCar();
+      await _createCar();
     } else {
-      _updateCar();
+      await _updateCar();
     }
+
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   Future<void> _createCar() async {
@@ -98,45 +120,49 @@ class _CarFormState extends State<CarForm> {
 
   @override
   Widget build(BuildContext context) {
+    final inversePrimaryColor = Theme.of(context).colorScheme.inversePrimary;
+
     return AppScaffold(
       title: "Car Form",
-      body: Form(
-        key: _formKey,
-        child: Padding(
-          padding: const EdgeInsets.all(32),
-          child: Column(
-            children: <Widget>[
-              TextFormField(
-                controller: _nameController,
-                decoration: const InputDecoration(
-                  labelText: 'Name',
+      body: _isLoading
+          ? SpinKitDualRing(color: inversePrimaryColor)
+          : Form(
+              key: _formKey,
+              child: Padding(
+                padding: const EdgeInsets.all(32),
+                child: Column(
+                  children: <Widget>[
+                    TextFormField(
+                      controller: _nameController,
+                      decoration: const InputDecoration(
+                        labelText: 'Name',
+                      ),
+                    ),
+                    TextFormField(
+                      controller: _colorController,
+                      decoration: const InputDecoration(
+                        labelText: 'Color',
+                      ),
+                    ),
+                    DropDownTextField(
+                        controller: _engineController,
+                        dropDownItemCount: _engines.length,
+                        dropDownList: _engines.map((engine) => DropDownValueModel(name: engine.name, value: engine)).toList()),
+                    DropDownTextField.multiSelection(
+                      controller: _equipmentOptionsController,
+                      displayCompleteItem: true,
+                      dropDownItemCount: _equipmentOptions.length,
+                      dropDownList: _equipmentOptions.map((equipmentOption) => DropDownValueModel(name: equipmentOption.name, value: equipmentOption)).toList(),
+                    ),
+                    const SizedBox(height: 32),
+                    ElevatedButton(
+                      onPressed: _submitForm,
+                      child: const Text('SAVE'),
+                    ),
+                  ],
                 ),
               ),
-              TextFormField(
-                controller: _colorController,
-                decoration: const InputDecoration(
-                  labelText: 'Color',
-                ),
-              ),
-              DropDownTextField(
-                  controller: _engineController,
-                  dropDownItemCount: _engines.length,
-                  dropDownList: _engines.map((engine) => DropDownValueModel(name: engine.name, value: engine)).toList()),
-              DropDownTextField.multiSelection(
-                controller: _equipmentOptionsController,
-                displayCompleteItem: true,
-                dropDownItemCount: _equipmentOptions.length,
-                dropDownList: _equipmentOptions.map((equipmentOption) => DropDownValueModel(name: equipmentOption.name, value: equipmentOption)).toList(),
-              ),
-              const SizedBox(height: 32),
-              ElevatedButton(
-                onPressed: _submitForm,
-                child: const Text('SAVE'),
-              ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }
