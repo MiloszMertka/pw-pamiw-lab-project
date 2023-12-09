@@ -13,23 +13,23 @@
     </padding>
 
     <VBox alignment="CENTER" spacing="20.0" fx:id="content">
-        <Label text="Car Form"/>
+        <Label text="%carForm"/>
 
-        <Label text="Name:"/>
+        <Label text="%name"/>
         <TextField fx:id="nameTextField"/>
 
-        <Label text="Color:"/>
+        <Label text="%color"/>
         <TextField fx:id="colorTextField"/>
 
-        <Label text="Engine:"/>
+        <Label text="%engine"/>
         <ComboBox fx:id="engineComboBox"/>
 
-        <Label text="Equipment Options:"/>
+        <Label text="%equipmentOptions"/>
         <CheckComboBox fx:id="equipmentCheckComboBox"/>
 
         <HBox alignment="CENTER" spacing="20.0">
-            <Button text="Go back" onAction="#onGoBackButtonClick"/>
-            <Button text="Save" onAction="#onSaveButtonClick"/>
+            <Button text="%goBack" onAction="#onGoBackButtonClick"/>
+            <Button text="%save" onAction="#onSaveButtonClick"/>
         </HBox>
     </VBox>
 

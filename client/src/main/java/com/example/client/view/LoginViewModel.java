@@ -2,8 +2,8 @@ package com.example.client.view;
 
 import com.example.client.Views;
 import com.example.client.model.LoginUser;
+import com.example.client.service.AppStateService;
 import com.example.client.service.AuthService;
-import com.example.client.service.AuthStateService;
 import com.google.inject.Inject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 public class LoginViewModel {
 
     private final AuthService authService;
-    private final AuthStateService authStateService;
+    private final AppStateService appStateService;
 
     @FXML
     private TextField usernameTextField;
@@ -31,9 +31,9 @@ public class LoginViewModel {
     private VBox progressIndicator;
 
     @Inject
-    public LoginViewModel(AuthService authService, AuthStateService authStateService) {
+    public LoginViewModel(AuthService authService, AppStateService appStateService) {
         this.authService = authService;
-        this.authStateService = authStateService;
+        this.appStateService = appStateService;
     }
 
     @FXML
@@ -57,7 +57,7 @@ public class LoginViewModel {
             return;
         }
 
-        authStateService.storeJwtToken(jwt.token());
+        appStateService.storeJwtToken(jwt.token());
         loadScene(Views.APP_VIEW, event);
 
         progressIndicator.setVisible(false);

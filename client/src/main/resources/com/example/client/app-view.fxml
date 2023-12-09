@@ -8,9 +8,11 @@
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
-    <Button text="Weather" onAction="#onWeatherButtonClick"/>
-    <Button text="Cars" onAction="#onCarsButtonClick"/>
-    <Button text="Engines" onAction="#onEnginesButtonClick"/>
-    <Button text="Equipment" onAction="#onEquipmentOptionsButtonClick"/>
-    <Button text="Logout" onAction="#onLogoutButtonClick"/>
+    <Label text="DreamCars"/>
+    <Button text="%weather" onAction="#onWeatherButtonClick"/>
+    <Button text="%cars" onAction="#onCarsButtonClick"/>
+    <Button text="%engines" onAction="#onEnginesButtonClick"/>
+    <Button text="%equipment" onAction="#onEquipmentOptionsButtonClick"/>
+    <Button text="%settings" onAction="#onSettingsButtonClick"/>
+    <Button text="%logout" onAction="#onLogoutButtonClick"/>
 </VBox>

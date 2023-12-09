@@ -10,36 +10,36 @@
     </padding>
 
     <VBox alignment="CENTER" spacing="20.0" fx:id="content">
-        <Label text="City"/>
+        <Label text="%city"/>
         <TextField fx:id="cityField"/>
-        <Button text="Search" onAction="#onSearchButtonClick"/>
+        <Button text="%search" onAction="#onSearchButtonClick"/>
         <VBox>
             <HBox>
-                <Label text="Temperature (current): "/>
+                <Label text="%currentTemperature"/>
                 <Label fx:id="currentTemperatureLabel"/>
             </HBox>
             <HBox>
-                <Label text="Temperature (past 6 hours): "/>
+                <Label text="%past6HoursTemperature"/>
                 <Label fx:id="pastTemperatureLabel"/>
             </HBox>
             <HBox>
-                <Label text="Temperature (past 24 hours): "/>
+                <Label text="%past24HoursTemperature"/>
                 <Label fx:id="pastDayTemperatureLabel"/>
             </HBox>
             <HBox>
-                <Label text="Temperature (in 12 hours): "/>
+                <Label text="%next12HoursTemperature"/>
                 <Label fx:id="next12HoursTemperatureLabel"/>
             </HBox>
             <HBox>
-                <Label text="Temperature (next day): "/>
+                <Label text="%nextDayTemperature"/>
                 <Label fx:id="nextDayTemperatureLabel"/>
             </HBox>
             <HBox>
-                <Label text="Temperature (in 5 days): "/>
+                <Label text="%next5DaysTemperature"/>
                 <Label fx:id="next5DaysTemperatureLabel"/>
             </HBox>
         </VBox>
-        <Button text="Go back" onAction="#onGoBackButtonClick"/>
+        <Button text="%goBack" onAction="#onGoBackButtonClick"/>
     </VBox>
 
     <VBox alignment="CENTER" fx:id="progressIndicator" visible="false">

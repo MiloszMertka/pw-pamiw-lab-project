@@ -13,7 +13,7 @@ public class AppModule extends AbstractModule {
         bind(EngineService.class).to(EngineServiceImpl.class);
         bind(EquipmentOptionService.class).to(EquipmentOptionServiceImpl.class);
         bind(AuthService.class).to(AuthServiceImpl.class);
-        bind(AuthStateService.class).to(AuthStateServiceImpl.class);
+        bind(AppStateService.class).to(AppStateServiceImpl.class);
     }
 
 }

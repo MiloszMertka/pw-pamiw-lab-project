@@ -1,7 +1,7 @@
 package com.example.client.view;
 
 import com.example.client.Views;
-import com.example.client.service.AuthStateService;
+import com.example.client.service.AppStateService;
 import com.google.inject.Inject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,11 +10,11 @@ import javafx.stage.Stage;
 
 public class AppViewModel {
 
-    private final AuthStateService authStateService;
+    private final AppStateService appStateService;
 
     @Inject
-    public AppViewModel(AuthStateService authStateService) {
-        this.authStateService = authStateService;
+    public AppViewModel(AppStateService appStateService) {
+        this.appStateService = appStateService;
     }
 
     @FXML
@@ -38,8 +38,13 @@ public class AppViewModel {
     }
 
     @FXML
+    private void onSettingsButtonClick(ActionEvent event) {
+        loadScene(Views.SETTINGS_VIEW, event);
+    }
+
+    @FXML
     private void onLogoutButtonClick(ActionEvent event) {
-        authStateService.clearJwtToken();
+        appStateService.clearJwtToken();
         loadScene(Views.UNAUTHENTICATED_VIEW, event);
     }
 

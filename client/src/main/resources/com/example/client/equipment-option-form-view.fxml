@@ -12,14 +12,14 @@
     </padding>
 
     <VBox alignment="CENTER" spacing="20.0" fx:id="content">
-        <Label text="Equipment Form"/>
+        <Label text="%equipmentForm"/>
 
-        <Label text="Name:"/>
+        <Label text="%name"/>
         <TextField fx:id="nameTextField"/>
 
         <HBox alignment="CENTER" spacing="20.0">
-            <Button text="Go back" onAction="#onGoBackButtonClick"/>
-            <Button text="Save" onAction="#onSaveButtonClick"/>
+            <Button text="%goBack" onAction="#onGoBackButtonClick"/>
+            <Button text="%save" onAction="#onSaveButtonClick"/>
         </HBox>
     </VBox>
 

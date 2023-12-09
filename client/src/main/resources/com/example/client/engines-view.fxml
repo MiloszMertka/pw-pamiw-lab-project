@@ -12,14 +12,14 @@
     </padding>
 
     <VBox alignment="CENTER" spacing="20.0" fx:id="content">
-        <Label text="Engines"/>
+        <Label text="%engines"/>
 
         <TableView fx:id="table"/>
         <Pagination fx:id="pagination"/>
 
         <HBox alignment="CENTER" spacing="20.0">
-            <Button text="Go back" onAction="#onGoBackButtonClick"/>
-            <Button text="Create new engine" onAction="#onCreateNewEngineButtonClick"/>
+            <Button text="%goBack" onAction="#onGoBackButtonClick"/>
+            <Button text="%createNewEngine" onAction="#onCreateNewEngineButtonClick"/>
         </HBox>
     </VBox>
 

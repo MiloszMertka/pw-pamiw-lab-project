@@ -8,6 +8,6 @@
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
-    <Button text="Login" onAction="#onLoginButtonClick"/>
-    <Button text="Register" onAction="#onRegisterButtonClick"/>
+    <Button text="%login" onAction="#onLoginButtonClick"/>
+    <Button text="%register" onAction="#onRegisterButtonClick"/>
 </VBox>

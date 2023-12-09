@@ -2,7 +2,7 @@ package com.example.client.service.internal;
 
 import com.example.client.Endpoints;
 import com.example.client.model.Engine;
-import com.example.client.service.AuthStateService;
+import com.example.client.service.AppStateService;
 import com.example.client.service.EngineService;
 import com.google.inject.Inject;
 
@@ -14,8 +14,8 @@ public class EngineServiceImpl implements EngineService {
     private final CrudService<Engine> crudService;
 
     @Inject
-    public EngineServiceImpl(AuthStateService authStateService) {
-        crudService = new CrudService<>(authStateService.getJwtToken());
+    public EngineServiceImpl(AppStateService appStateService) {
+        crudService = new CrudService<>(appStateService.getJwtToken());
     }
 
     @Override

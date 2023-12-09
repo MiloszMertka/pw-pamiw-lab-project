@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import atlantafx.base.controls.ToggleSwitch?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Box?>
+<?import java.lang.String?>
+<VBox xmlns:fx="http://javafx.com/fxml" alignment="CENTER" spacing="20.0"
+      fx:controller="com.example.client.view.SettingsViewModel">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+    </padding>
+
+    <Label text="%settings"/>
+
+    <HBox alignment="CENTER">
+        <Label text="%darkMode"/>
+        <Box width="10" height="0"/>
+        <ToggleSwitch fx:id="darkModeToggleSwitch"/>
+    </HBox>
+
+    <HBox alignment="CENTER">
+        <Label text="%language"/>
+        <Box width="10" height="0"/>
+        <ComboBox fx:id="languageComboBox">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="EN"/>
+                    <String fx:value="PL"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+    </HBox>
+
+    <Button text="%goBack" onAction="#onGoBackButtonClick"/>
+</VBox>

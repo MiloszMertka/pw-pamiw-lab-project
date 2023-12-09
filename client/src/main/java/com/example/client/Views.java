@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ResourceBundle;
 
 public enum Views {
 
@@ -23,16 +24,22 @@ public enum Views {
     EQUIPMENT_OPTION_FORM_VIEW("equipment-option-form-view.fxml"),
     UNAUTHENTICATED_VIEW("unauthenticated-view.fxml"),
     LOGIN_VIEW("login-view.fxml"),
-    REGISTER_VIEW("register-view.fxml");
+    REGISTER_VIEW("register-view.fxml"),
+    SETTINGS_VIEW("settings-view.fxml");
 
     private static final int APP_WIDTH = 512;
     private static final int APP_HEIGHT = 768;
     private static final Injector INJECTOR = Guice.createInjector(new AppModule());
+    private static ResourceBundle resourceBundle;
 
     private final String fxmlFileName;
 
     Views(String fxmlFileName) {
         this.fxmlFileName = fxmlFileName;
+    }
+
+    public static void setResourceBundle(ResourceBundle resourceBundle) {
+        Views.resourceBundle = resourceBundle;
     }
 
     public void loadScene(Stage stage) {
@@ -56,6 +63,7 @@ public enum Views {
     private Scene loadViewResource() throws IOException {
         final var viewResource = getViewResource();
         final var fxmlLoader = new FXMLLoader(viewResource);
+        fxmlLoader.setResources(resourceBundle);
         fxmlLoader.setControllerFactory(INJECTOR::getInstance);
         return new Scene(fxmlLoader.load(), APP_WIDTH, APP_HEIGHT);
     }
@@ -63,6 +71,7 @@ public enum Views {
     private <T> Scene loadViewResource(T payload) throws IOException {
         final var viewResource = getViewResource();
         final var fxmlLoader = new FXMLLoader(viewResource);
+        fxmlLoader.setResources(resourceBundle);
         fxmlLoader.setControllerFactory(INJECTOR::getInstance);
         final Parent root = fxmlLoader.load();
         final PayloadViewModel<T> viewModel = fxmlLoader.getController();
