@@ -8,7 +8,9 @@ import com.google.inject.Inject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class LoginViewModel {
@@ -20,7 +22,13 @@ public class LoginViewModel {
     private TextField usernameTextField;
 
     @FXML
-    private TextField passwordTextField;
+    private PasswordField passwordField;
+
+    @FXML
+    private VBox content;
+
+    @FXML
+    private VBox progressIndicator;
 
     @Inject
     public LoginViewModel(AuthService authService, AuthStateService authStateService) {
@@ -35,8 +43,11 @@ public class LoginViewModel {
 
     @FXML
     private void onLoginButtonClick(ActionEvent event) {
+        content.setDisable(true);
+        progressIndicator.setVisible(true);
+
         final var username = usernameTextField.getText();
-        final var password = passwordTextField.getText();
+        final var password = passwordField.getText();
         final var loginUser = new LoginUser(username, password);
         final var jwt = authService.login(loginUser);
 
@@ -46,6 +57,9 @@ public class LoginViewModel {
 
         authStateService.storeJwtToken(jwt.token());
         loadScene(Views.APP_VIEW, event);
+
+        progressIndicator.setVisible(false);
+        content.setDisable(false);
     }
 
     private void loadScene(Views view, ActionEvent event) {

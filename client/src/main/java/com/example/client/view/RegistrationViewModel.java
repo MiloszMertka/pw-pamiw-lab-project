@@ -7,7 +7,9 @@ import com.google.inject.Inject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class RegistrationViewModel {
@@ -18,7 +20,13 @@ public class RegistrationViewModel {
     private TextField usernameTextField;
 
     @FXML
-    private TextField passwordTextField;
+    private PasswordField passwordField;
+
+    @FXML
+    private VBox content;
+
+    @FXML
+    private VBox progressIndicator;
 
     @Inject
     public RegistrationViewModel(AuthService authService) {
@@ -32,11 +40,17 @@ public class RegistrationViewModel {
 
     @FXML
     private void onRegisterButtonClick(ActionEvent event) {
+        content.setDisable(true);
+        progressIndicator.setVisible(true);
+
         final var username = usernameTextField.getText();
-        final var password = passwordTextField.getText();
+        final var password = passwordField.getText();
         final var registerUser = new RegisterUser(username, password);
         authService.register(registerUser);
         returnToUnauthorizedView(event);
+
+        progressIndicator.setVisible(false);
+        content.setDisable(false);
     }
 
     private void returnToUnauthorizedView(ActionEvent event) {

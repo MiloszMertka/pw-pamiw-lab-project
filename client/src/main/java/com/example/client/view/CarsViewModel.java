@@ -33,6 +33,12 @@ public class CarsViewModel implements Initializable {
     @FXML
     private Pagination pagination;
 
+    @FXML
+    private VBox content;
+
+    @FXML
+    private VBox progressIndicator;
+
     @Inject
     public CarsViewModel(CarService carService) {
         this.carService = carService;
@@ -40,9 +46,15 @@ public class CarsViewModel implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        content.setDisable(true);
+        progressIndicator.setVisible(true);
+
         createTableColumns();
         cars.addAll(carService.getAllCars());
         configurePagination();
+
+        progressIndicator.setVisible(false);
+        content.setDisable(false);
     }
 
     @FXML

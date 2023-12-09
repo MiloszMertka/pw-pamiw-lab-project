@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class WeatherViewModel {
@@ -36,6 +37,12 @@ public class WeatherViewModel {
     @FXML
     private Label next5DaysTemperatureLabel;
 
+    @FXML
+    private VBox content;
+
+    @FXML
+    private VBox progressIndicator;
+
     @Inject
     public WeatherViewModel(WeatherService weatherService) {
         this.weatherService = weatherService;
@@ -43,9 +50,15 @@ public class WeatherViewModel {
 
     @FXML
     private void onSearchButtonClick() {
+        content.setDisable(true);
+        progressIndicator.setVisible(true);
+
         final var city = cityField.getText();
         final var temperatures = getTemperaturesForCity(city);
         setTemperatureLabels(temperatures);
+
+        progressIndicator.setVisible(false);
+        content.setDisable(false);
     }
 
     @FXML

@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class EngineFormViewModel implements PayloadViewModel<Engine> {
@@ -19,6 +20,12 @@ public class EngineFormViewModel implements PayloadViewModel<Engine> {
 
     @FXML
     private TextField horsePowerTextField;
+
+    @FXML
+    private VBox content;
+
+    @FXML
+    private VBox progressIndicator;
 
     private Long id = null;
 
@@ -41,6 +48,9 @@ public class EngineFormViewModel implements PayloadViewModel<Engine> {
 
     @FXML
     private void onSaveButtonClick(ActionEvent event) {
+        content.setDisable(true);
+        progressIndicator.setVisible(true);
+
         final var engine = prepareEngineData();
 
         if (id == null) {
@@ -50,6 +60,9 @@ public class EngineFormViewModel implements PayloadViewModel<Engine> {
         }
 
         returnToEnginesView(event);
+
+        progressIndicator.setVisible(false);
+        content.setDisable(false);
     }
 
     private void returnToEnginesView(ActionEvent event) {

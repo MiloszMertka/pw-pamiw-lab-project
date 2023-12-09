@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.controlsfx.control.CheckComboBox;
 
@@ -39,6 +40,12 @@ public class CarFormViewModel implements Initializable, PayloadViewModel<Car> {
     @FXML
     private CheckComboBox<EquipmentOption> equipmentCheckComboBox;
 
+    @FXML
+    private VBox content;
+
+    @FXML
+    private VBox progressIndicator;
+
     private Long id = null;
 
     @Inject
@@ -50,10 +57,16 @@ public class CarFormViewModel implements Initializable, PayloadViewModel<Car> {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        content.setDisable(true);
+        progressIndicator.setVisible(true);
+
         final var engines = FXCollections.observableArrayList(engineService.getAllEngines());
         engineComboBox.setItems(engines);
         final var equipmentOptions = FXCollections.observableArrayList(equipmentOptionService.getAllEquipmentOptions());
         equipmentCheckComboBox.getItems().addAll(equipmentOptions);
+
+        progressIndicator.setVisible(false);
+        content.setDisable(false);
     }
 
     @Override
@@ -72,6 +85,9 @@ public class CarFormViewModel implements Initializable, PayloadViewModel<Car> {
 
     @FXML
     private void onSaveButtonClick(ActionEvent event) {
+        content.setDisable(true);
+        progressIndicator.setVisible(true);
+
         final var car = prepareCarData();
 
         if (id == null) {
@@ -81,6 +97,9 @@ public class CarFormViewModel implements Initializable, PayloadViewModel<Car> {
         }
 
         returnToCarsView(event);
+
+        progressIndicator.setVisible(false);
+        content.setDisable(false);
     }
 
     private void returnToCarsView(ActionEvent event) {

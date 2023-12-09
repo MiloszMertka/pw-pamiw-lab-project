@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class EquipmentOptionFormViewModel implements PayloadViewModel<EquipmentOption> {
@@ -16,6 +17,12 @@ public class EquipmentOptionFormViewModel implements PayloadViewModel<EquipmentO
 
     @FXML
     private TextField nameTextField;
+
+    @FXML
+    private VBox content;
+
+    @FXML
+    private VBox progressIndicator;
 
     private Long id = null;
 
@@ -37,6 +44,9 @@ public class EquipmentOptionFormViewModel implements PayloadViewModel<EquipmentO
 
     @FXML
     private void onSaveButtonClick(ActionEvent event) {
+        content.setDisable(true);
+        progressIndicator.setVisible(true);
+
         final var equipmentOption = prepareEquipmentOptionData();
 
         if (id == null) {
@@ -46,6 +56,9 @@ public class EquipmentOptionFormViewModel implements PayloadViewModel<EquipmentO
         }
 
         returnToEquipmentOptionsView(event);
+
+        progressIndicator.setVisible(false);
+        content.setDisable(false);
     }
 
     private void returnToEquipmentOptionsView(ActionEvent event) {
