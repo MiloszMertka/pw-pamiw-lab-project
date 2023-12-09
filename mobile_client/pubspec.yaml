@@ -44,6 +44,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: any
+  mobile_scanner: ^3.5.5
 
 dev_dependencies:
   flutter_test:

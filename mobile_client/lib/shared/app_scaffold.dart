@@ -73,6 +73,12 @@ class _AppScaffoldState extends State<AppScaffold> {
                 Navigator.pushReplacementNamed(context, '/settings');
               },
             ),
+            ListTile(
+              title: Text(localizations.carScanner),
+              onTap: () {
+                Navigator.pushReplacementNamed(context, '/car-scanner');
+              },
+            ),
           ],
         ),
       ),

@@ -8,6 +8,7 @@ import 'package:mobile_client/models/engine.dart';
 import 'package:mobile_client/models/equipment_option.dart';
 import 'package:mobile_client/views/car_form.dart';
 import 'package:mobile_client/views/car_list.dart';
+import 'package:mobile_client/views/car_scanner.dart';
 import 'package:mobile_client/views/engine_form.dart';
 import 'package:mobile_client/views/engine_list.dart';
 import 'package:mobile_client/views/equipment_option_form.dart';
@@ -80,6 +81,7 @@ class MyApp extends StatelessWidget {
           '/settings': (context) => const Settings(),
           '/login': (context) => const Login(),
           '/register': (context) => const Register(),
+          '/car-scanner': (context) => const CarScanner(),
         },
       ),
     );

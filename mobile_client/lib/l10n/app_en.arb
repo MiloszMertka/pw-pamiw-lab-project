@@ -29,5 +29,6 @@
     "password": "Password",
     "passwordConfirmation": "Password Confirmation",
     "passwordsDoNotMatch": "Passwords do not match",
-    "invalidCredentials": "Invalid Credentials"
+    "invalidCredentials": "Invalid Credentials",
+    "carScanner": "Car Scanner"
 }

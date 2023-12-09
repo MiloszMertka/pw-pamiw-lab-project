@@ -25,8 +25,11 @@
     "required": "To pole jest wymagane",
     "integer": "Wartość musi być liczbą całkowitą",
     "positive": "Wartość musi być liczbą dodatnią",
+    "username": "Użytkownik",
+    "password": "Hasło",
     "passwordConfirmation": "Potwierdzenie Hasła",
     "passwordsDoNotMatch": "Hasła nie są takie same",
-    "invalidCredentials": "Nieprawidłowe dane logowania"
+    "invalidCredentials": "Nieprawidłowe dane logowania",
+    "carScanner": "Skaner Samochodów"
   }
   

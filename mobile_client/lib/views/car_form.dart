@@ -125,7 +125,8 @@ class _CarFormState extends State<CarForm> {
 
   @override
   Widget build(BuildContext context) {
-    final inversePrimaryColor = Theme.of(context).colorScheme.inversePrimary;
+    final theme = Theme.of(context);
+    final inversePrimaryColor = theme.colorScheme.inversePrimary;
     final localizations = AppLocalizations.of(context)!;
 
     return AppScaffold(
@@ -181,6 +182,9 @@ class _CarFormState extends State<CarForm> {
                       displayCompleteItem: true,
                       dropDownItemCount: _equipmentOptions.length,
                       dropDownList: _equipmentOptions.map((equipmentOption) => DropDownValueModel(name: equipmentOption.name, value: equipmentOption)).toList(),
+                      submitButtonColor: inversePrimaryColor,
+                      submitButtonText: localizations.save.toUpperCase(),
+                      submitButtonTextStyle: theme.textTheme.labelLarge,
                     ),
                     const SizedBox(height: 32),
                     ElevatedButton(
