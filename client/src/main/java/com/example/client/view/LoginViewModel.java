@@ -52,6 +52,8 @@ public class LoginViewModel {
         final var jwt = authService.login(loginUser);
 
         if (jwt == null) {
+            progressIndicator.setVisible(false);
+            content.setDisable(false);
             return;
         }
 
