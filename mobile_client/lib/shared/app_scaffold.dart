@@ -42,6 +42,7 @@ class _AppScaffoldState extends State<AppScaffold> {
                     return TextButton(
                         onPressed: () {
                           appState.setJwt(null);
+                          appState.setGoogleToken(null);
                           Navigator.pushReplacementNamed(context, '/login');
                         },
                         child: Text(localizations.logout));

@@ -6,10 +6,12 @@ class AppState extends ChangeNotifier {
   bool _isDarkMode = false;
   Locale _locale = const Locale('en');
   static Jwt? _jwt;
+  static String? _googleToken;
 
   bool get isDarkMode => _isDarkMode;
   Locale get locale => _locale;
   static Jwt? get jwt => _jwt;
+  static String? get googleToken => _googleToken;
 
   Future<void> loadSettings() async {
     final preferences = await SharedPreferences.getInstance();
@@ -43,6 +45,11 @@ class AppState extends ChangeNotifier {
 
   void setJwt(Jwt? jwt) {
     _jwt = jwt;
+    notifyListeners();
+  }
+
+  void setGoogleToken(String? token) {
+    _googleToken = token;
     notifyListeners();
   }
 }

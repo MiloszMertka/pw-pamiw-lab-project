@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mobile_client/app_state.dart';
+import 'package:mobile_client/constants.dart';
 import 'package:mobile_client/locator.dart';
 import 'package:mobile_client/models/user_login.dart';
 import 'package:mobile_client/services/auth_service.dart';
@@ -16,6 +18,10 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final _authService = locator<AuthService>();
+  final _googleSignIn = GoogleSignIn(
+    clientId: googleClientId,
+    scopes: ['email', 'profile', 'openid'],
+  );
 
   bool _isLoading = false;
   bool _invalidCredentials = false;
@@ -64,6 +70,20 @@ class _LoginState extends State<Login> {
     }
 
     Provider.of<AppState>(context, listen: false).setJwt(jwt);
+    Navigator.pushReplacementNamed(context, '/cars');
+  }
+
+  Future<void> _loginWithGoogle() async {
+    final account = await _googleSignIn.signIn();
+
+    if (account == null) {
+      return;
+    }
+
+    final auth = await account.authentication;
+    final token = auth.idToken;
+
+    Provider.of<AppState>(context, listen: false).setGoogleToken(token!);
     Navigator.pushReplacementNamed(context, '/cars');
   }
 
@@ -154,6 +174,13 @@ class _LoginState extends State<Login> {
                       ElevatedButton(
                         onPressed: _submitForm,
                         child: Text(localizations.login.toUpperCase()),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(localizations.or.toUpperCase()),
+                      const SizedBox(height: 8),
+                      ElevatedButton(
+                        onPressed: _loginWithGoogle,
+                        child: Text(localizations.loginWithGoogle.toUpperCase()),
                       ),
                     ],
                   ),

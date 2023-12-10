@@ -1,9 +1,21 @@
 security:
   jwt:
-    header: Authorization
+    header: X-Authorization
     prefix: "Bearer "
     expiration: 86400000
 spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 28688220974-48vkli2fb06nnrcorf4amh077gqnqr0p.apps.googleusercontent.com
+            client-secret: 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
+            scope: openid,profile,email
+      resourceserver:
+        jwt:
+          issuer-uri: https://accounts.google.com
+          jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs

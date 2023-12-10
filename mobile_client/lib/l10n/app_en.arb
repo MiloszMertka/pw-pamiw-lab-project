@@ -30,5 +30,7 @@
     "passwordConfirmation": "Password Confirmation",
     "passwordsDoNotMatch": "Passwords do not match",
     "invalidCredentials": "Invalid Credentials",
-    "carScanner": "Car Scanner"
+    "carScanner": "Car Scanner",
+    "loginWithGoogle": "Login With Google",
+    "or": "or"
 }

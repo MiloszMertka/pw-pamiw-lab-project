@@ -30,6 +30,8 @@
     "passwordConfirmation": "Potwierdzenie Hasła",
     "passwordsDoNotMatch": "Hasła nie są takie same",
     "invalidCredentials": "Nieprawidłowe dane logowania",
-    "carScanner": "Skaner Samochodów"
+    "carScanner": "Skaner Samochodów",
+    "loginWithGoogle": "Zaloguj z Google",
+    "or": "lub"
   }
   

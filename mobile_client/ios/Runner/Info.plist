@@ -56,5 +56,16 @@
 	<string>This app needs camera access to scan QR codes</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app needs photos access to get QR code from photo library</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.28688220974-nqj0g5sfdc73rb9079eer293v4skqmk6</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>
