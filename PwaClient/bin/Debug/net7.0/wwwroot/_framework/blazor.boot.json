@@ -203,13 +203,13 @@
       "mscorlib.dll": "sha256-YcsJInaT\/kw3Vrm+SESegPxvT\/Lr9RE6rE\/KnxWIIc0=",
       "netstandard.dll": "sha256-TztlSRjADgiEABbiAMdWZpHrUVd8wnRtQRAvlwmRP\/4=",
       "System.Private.CoreLib.dll": "sha256-BAhrZ8Zg3cJKQipxdzqQo+9jtPkOkRx1ou3oIhDohtk=",
-      "PwaClient.dll": "sha256-3J9Yabytc1LuZ9f09TGS5shxwAoEMjMUv5opxIZfNUI="
+      "PwaClient.dll": "sha256-3xohDzRc5Esgnh7xhGZcU0kyTggdrtCvj14YZf64yao="
     },
     "extensions": null,
     "lazyAssembly": null,
     "libraryInitializers": null,
     "pdb": {
-      "PwaClient.pdb": "sha256-TnvyPn2zSc6Kv5AxjKQGLUTxnhbqFR\/hTvlG45u5h2Y="
+      "PwaClient.pdb": "sha256-Z1OyU15GWUJBOOkrCdz4Oz0LzC6aYTXFY+AOT3009wM="
     },
     "runtime": {
       "dotnet.7.0.14.97ezwzb8bx.js": "sha256-YWGUknGRzP\/fgO6YjvCJKPVQNZAPEd6ll+rHfQEIW+I=",
@@ -228,7 +228,7 @@
     },
     "satelliteResources": {
       "pl": {
-        "pl\/PwaClient.resources.dll": "sha256-FRFtFXgXtx1TT+AWjvMZe9XFYuX1Sk6njUY+eJE4JJY="
+        "pl\/PwaClient.resources.dll": "sha256-V3O4\/h6n5iRcVmwLn93acPzhpjEn0C8o7Q13aVz5pqI="
       }
     }
   }

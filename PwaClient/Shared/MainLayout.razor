@@ -70,6 +70,7 @@
     private async Task Logout()
     {
         await LocalStorageService.RemoveItemAsync("authToken");
+        await LocalStorageService.RemoveItemAsync("googleToken");
         await AuthenticationStateProvider.GetAuthenticationStateAsync();
         NavigationManager.NavigateTo("/login");
     }

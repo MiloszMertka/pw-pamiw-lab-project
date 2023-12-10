@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ejWVtkf31iAYcH6b76b8+w0h2YcJicJqYqvyIIOD2OY=",
+  "Hash": "q5sXLa4W7XWODEynLNkVcuI42omVlLXik1K3XDxlQCY=",
   "Source": "PwaClient",
   "BasePath": "/",
   "Mode": "Root",
@@ -7393,6 +7393,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/favicon.png"
+    },
+    {
+      "Identity": "/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab-project/PwaClient/wwwroot/google-oauth.js",
+      "SourceId": "PwaClient",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab-project/PwaClient/wwwroot/",
+      "BasePath": "/",
+      "RelativePath": "google-oauth.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/google-oauth.js"
     },
     {
       "Identity": "/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab-project/PwaClient/wwwroot/icon-192.png",

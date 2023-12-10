@@ -53,6 +53,10 @@
       "url": "favicon.png"
     },
     {
+      "hash": "sha256-Rafmv0ELYLm8Xq\/S3eWlUflckqXt0aqt7BCAFwkNiyo=",
+      "url": "google-oauth.js"
+    },
+    {
       "hash": "sha256-DbpQaq68ZSb5IoPosBErM1QWBfsbTxpJqhU0REi6wP4=",
       "url": "icon-192.png"
     },
@@ -61,7 +65,7 @@
       "url": "icon-512.png"
     },
     {
-      "hash": "sha256-ZQl4u3iBwv5C\/QxemZtcM7n3Y30EYZBF29E+IssW+Y8=",
+      "hash": "sha256-V127bs6vFVtajSYYrbU0RvsFPgICjCzbHj2Btypq1Wk=",
       "url": "index.html"
     },
     {
@@ -881,15 +885,15 @@
       "url": "_framework\/icudt_no_CJK.dat"
     },
     {
-      "hash": "sha256-3J9Yabytc1LuZ9f09TGS5shxwAoEMjMUv5opxIZfNUI=",
+      "hash": "sha256-quH5fkgzjXEuDsVtHFrGRey3oKQIEOXJgyZjsA1Frwc=",
       "url": "_framework\/PwaClient.dll"
     },
     {
-      "hash": "sha256-TnvyPn2zSc6Kv5AxjKQGLUTxnhbqFR\/hTvlG45u5h2Y=",
+      "hash": "sha256-oLcdLUaK1a5Rt3LfbPVrpgiwCZy1yDUQoLLwVpr1Q\/4=",
       "url": "_framework\/PwaClient.pdb"
     },
     {
-      "hash": "sha256-FRFtFXgXtx1TT+AWjvMZe9XFYuX1Sk6njUY+eJE4JJY=",
+      "hash": "sha256-V3O4\/h6n5iRcVmwLn93acPzhpjEn0C8o7Q13aVz5pqI=",
       "url": "_framework\/pl\/PwaClient.resources.dll"
     },
     {
@@ -897,7 +901,7 @@
       "url": "_framework\/blazor.webassembly.js"
     },
     {
-      "hash": "sha256-+exI4iSQgjJ3tDe8FdGuUEjKuBdrG0ucuu10mmBunwE=",
+      "hash": "sha256-0gEXjzD8ZbSeDNaypna+awjiMcfVnDFpC04AijDHbKA=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -909,5 +913,5 @@
       "url": "_content\/MudBlazor\/MudBlazor.min.js"
     }
   ],
-  "version": "7AuP1GQn"
+  "version": "wQzdQ2jm"
 };

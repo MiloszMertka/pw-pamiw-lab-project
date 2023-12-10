@@ -69,6 +69,10 @@
       "PackagePath": "staticwebassets/favicon.png"
     },
     {
+      "Id": "/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab-project/PwaClient/wwwroot/google-oauth.js",
+      "PackagePath": "staticwebassets/google-oauth.js"
+    },
+    {
       "Id": "/Users/miloszmertka/Desktop/Studia/sem5/Programowanie Aplikacji Mobilnych i Webowych/pw-pamiw-lab-project/PwaClient/wwwroot/icon-192.png",
       "PackagePath": "staticwebassets/icon-192.png"
     },

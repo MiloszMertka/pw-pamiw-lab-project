@@ -9,6 +9,7 @@
 @inject NavigationManager NavigationManager
 @inject HttpClient HttpClient
 @inject IStringLocalizer<Login> Loc
+@inject IJSRuntime JSRuntime
 
 <PageTitle>@Loc["Login"]</PageTitle>
 
@@ -30,6 +31,10 @@
         </MudCardActions>
     </MudCard>
 </EditForm>
+<MudDivider Class="my-4" />
+<MudButton @onclick="HandleGoogleLogin" Variant="Variant.Filled" Color="Color.Primary" Class="mx-auto d-block">
+    @Loc["Login With Google"]
+</MudButton>
 
 @if (!string.IsNullOrEmpty(message))
 {
@@ -58,6 +63,22 @@
 
         await LocalStorageService.SetItemAsync("authToken", jwt.Token);
         await AuthenticationStateProvider.GetAuthenticationStateAsync();
+
+        NavigationManager.NavigateTo("/");
+        isSubmitting = false;
+    }
+
+    private async Task HandleGoogleLogin()
+    {
+        isSubmitting = true;
+        message = string.Empty;
+
+        var authenticationStateProvider =
+        DotNetObjectReference.Create<AuthenticationStateProvider>(AuthenticationStateProvider);
+
+        await JSRuntime.InvokeVoidAsync("googleInitialize",
+        "28688220974-48vkli2fb06nnrcorf4amh077gqnqr0p.apps.googleusercontent.com", authenticationStateProvider);
+        await JSRuntime.InvokeVoidAsync("googlePrompt");
 
         NavigationManager.NavigateTo("/");
         isSubmitting = false;
