@@ -1,7 +1,10 @@
 package com.example.client.service.internal;
 
+import com.example.client.model.Role;
 import com.example.client.service.AppStateService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.util.Base64;
 import java.util.prefs.Preferences;
 
 public class AppStateServiceImpl implements AppStateService {
@@ -10,6 +13,7 @@ public class AppStateServiceImpl implements AppStateService {
     private static final String IS_DARK_MODE_KEY = "isDarkMode";
     private static final String LANGUAGE_CODE_KEY = "languageCode";
     private final Preferences preferences = Preferences.userRoot().node("com.example.client");
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
     public void storeJwtToken(String jwtToken) {
@@ -46,5 +50,29 @@ public class AppStateServiceImpl implements AppStateService {
         return preferences.get(LANGUAGE_CODE_KEY, "en");
     }
 
+    @Override
+    public boolean isAdmin() {
+        final var jwtToken = getJwtToken();
+
+        if (jwtToken == null) {
+            return false;
+        }
+
+        final var role = getRoleFromJwt(jwtToken);
+        return role == Role.ADMIN;
+    }
+
+    private Role getRoleFromJwt(String jwt) {
+        try {
+            final var payload = jwt.split("\\.")[1];
+            final var decoder = Base64.getDecoder();
+            final var decodedPayload = decoder.decode(payload);
+            final var role = objectMapper.readTree(decodedPayload).get("authorities").get(0).get("authority").asText();
+            return Role.fromString(role);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return null;
+        }
+    }
 
 }

@@ -4,6 +4,7 @@ import com.example.api.config.JwtConfig;
 import com.example.api.dto.JwtDto;
 import com.example.api.dto.LoginUserDto;
 import com.example.api.dto.RegisterUserDto;
+import com.example.api.model.Role;
 import com.example.api.model.User;
 import com.example.api.repository.UserRepository;
 import com.example.api.service.AuthUseCases;
@@ -44,7 +45,7 @@ class AuthService implements AuthUseCases, UserDetailsService {
     public void register(RegisterUserDto registerUserDto) {
         checkIfUserAlreadyExists(registerUserDto.username());
         final var encodedPassword = passwordEncoder.encode(registerUserDto.password());
-        final var user = new User(registerUserDto.username(), encodedPassword);
+        final var user = new User(registerUserDto.username(), encodedPassword, Role.USER);
         userRepository.save(user);
     }
 

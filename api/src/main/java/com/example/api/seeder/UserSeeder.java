@@ -1,5 +1,6 @@
 package com.example.api.seeder;
 
+import com.example.api.model.Role;
 import com.example.api.model.User;
 import com.example.api.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ public class UserSeeder implements Seeder {
         }
 
         final var encodedPassword = passwordEncoder.encode("password");
-        final var user = new User("admin", encodedPassword);
+        final var user = new User("admin", encodedPassword, Role.ADMIN);
         userRepository.save(user);
     }
 

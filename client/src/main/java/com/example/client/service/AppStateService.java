@@ -16,4 +16,6 @@ public interface AppStateService {
 
     String getLanguageCode();
 
+    boolean isAdmin();
+
 }

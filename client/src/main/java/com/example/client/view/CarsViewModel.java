@@ -3,6 +3,7 @@ package com.example.client.view;
 import com.example.client.Views;
 import com.example.client.model.Car;
 import com.example.client.model.EquipmentOption;
+import com.example.client.service.AppStateService;
 import com.example.client.service.CarService;
 import com.google.inject.Inject;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -25,6 +26,7 @@ public class CarsViewModel implements Initializable {
 
     private static final int ROWS_PER_PAGE = 10;
     private final CarService carService;
+    private final AppStateService appStateService;
     private final ObservableList<Car> cars = FXCollections.observableArrayList();
 
     @FXML
@@ -40,8 +42,9 @@ public class CarsViewModel implements Initializable {
     private VBox progressIndicator;
 
     @Inject
-    public CarsViewModel(CarService carService) {
+    public CarsViewModel(CarService carService, AppStateService appStateService) {
         this.carService = carService;
+        this.appStateService = appStateService;
     }
 
     @Override
@@ -72,7 +75,10 @@ public class CarsViewModel implements Initializable {
     }
 
     private void createTableColumns() {
-        createDeleteTableColumn();
+        if (appStateService.isAdmin()) {
+            createDeleteTableColumn();
+        }
+
         createEditTableColumn();
         TableColumn<Car, String> nameColumn = new TableColumn<>("Name");
         nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().name()));

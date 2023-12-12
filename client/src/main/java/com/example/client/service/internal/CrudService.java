@@ -16,7 +16,7 @@ public class CrudService<T> {
     private final HttpClient httpClient = HttpClient.newHttpClient();
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final String jwt;
-    
+
     public CrudService(String jwt) {
         this.jwt = jwt;
     }
@@ -27,7 +27,7 @@ public class CrudService<T> {
             final var request = HttpRequest.newBuilder()
                     .uri(uri)
                     .GET()
-                    .setHeader("Authorization", "Bearer " + jwt)
+                    .setHeader("X-Authorization", "Bearer " + jwt)
                     .build();
             final var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             final var body = response.body();
@@ -44,7 +44,7 @@ public class CrudService<T> {
             final var request = HttpRequest.newBuilder()
                     .uri(uri)
                     .POST(HttpRequest.BodyPublishers.ofString(objectMapper.writeValueAsString(entity)))
-                    .setHeader("Authorization", "Bearer " + jwt)
+                    .setHeader("X-Authorization", "Bearer " + jwt)
                     .setHeader("Content-Type", "application/json")
                     .build();
             final var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
@@ -60,7 +60,7 @@ public class CrudService<T> {
             final var request = HttpRequest.newBuilder()
                     .uri(uri)
                     .PUT(HttpRequest.BodyPublishers.ofString(objectMapper.writeValueAsString(entity)))
-                    .setHeader("Authorization", "Bearer " + jwt)
+                    .setHeader("X-Authorization", "Bearer " + jwt)
                     .setHeader("Content-Type", "application/json")
                     .build();
             final var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
@@ -76,7 +76,7 @@ public class CrudService<T> {
             final var request = HttpRequest.newBuilder()
                     .uri(uri)
                     .DELETE()
-                    .setHeader("Authorization", "Bearer " + jwt)
+                    .setHeader("X-Authorization", "Bearer " + jwt)
                     .build();
             final var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             handlePossibleErrors(response);

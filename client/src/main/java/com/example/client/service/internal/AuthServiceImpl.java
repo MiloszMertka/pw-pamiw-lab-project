@@ -2,10 +2,7 @@ package com.example.client.service.internal;
 
 import com.example.client.Endpoints;
 import com.example.client.ErrorHandler;
-import com.example.client.model.Errors;
-import com.example.client.model.Jwt;
-import com.example.client.model.LoginUser;
-import com.example.client.model.RegisterUser;
+import com.example.client.model.*;
 import com.example.client.service.AuthService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -13,6 +10,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Base64;
 import java.util.List;
 
 public class AuthServiceImpl implements AuthService {
@@ -35,7 +33,7 @@ public class AuthServiceImpl implements AuthService {
             final var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             handleLoginErrors(response);
             final var body = response.body();
-            return objectMapper.readValue(body, Jwt.class);
+            return decodeJwt(body);
         } catch (Exception exception) {
             exception.printStackTrace();
             return null;
@@ -55,6 +53,20 @@ public class AuthServiceImpl implements AuthService {
             handleRegisterErrors(response);
         } catch (Exception exception) {
             exception.printStackTrace();
+        }
+    }
+
+    private Jwt decodeJwt(String jwt) {
+        try {
+            final var token = objectMapper.readTree(jwt).get("token").asText();
+            final var payload = token.split("\\.")[1];
+            final var decoder = Base64.getDecoder();
+            final var decodedPayload = decoder.decode(payload);
+            final var role = objectMapper.readTree(decodedPayload).get("authorities").get(0).get("authority").asText();
+            return new Jwt(token, Role.fromString(role));
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return null;
         }
     }
 

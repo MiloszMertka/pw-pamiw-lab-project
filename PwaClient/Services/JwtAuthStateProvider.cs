@@ -4,6 +4,7 @@ using Microsoft.JSInterop;
 using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 
 namespace PwaClient.Services.JwtAuthStateProvider
 {

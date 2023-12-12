@@ -2,6 +2,7 @@ package com.example.client.view;
 
 import com.example.client.Views;
 import com.example.client.model.EquipmentOption;
+import com.example.client.service.AppStateService;
 import com.example.client.service.EquipmentOptionService;
 import com.google.inject.Inject;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -24,6 +25,7 @@ public class EquipmentOptionsViewModel implements Initializable {
 
     private static final int ROWS_PER_PAGE = 10;
     private final EquipmentOptionService equipmentOptionService;
+    private final AppStateService appStateService;
     private final ObservableList<EquipmentOption> equipmentOptions = FXCollections.observableArrayList();
 
     @FXML
@@ -39,8 +41,9 @@ public class EquipmentOptionsViewModel implements Initializable {
     private VBox progressIndicator;
 
     @Inject
-    public EquipmentOptionsViewModel(EquipmentOptionService equipmentOptionService) {
+    public EquipmentOptionsViewModel(EquipmentOptionService equipmentOptionService, AppStateService appStateService) {
         this.equipmentOptionService = equipmentOptionService;
+        this.appStateService = appStateService;
     }
 
     @Override
@@ -71,7 +74,10 @@ public class EquipmentOptionsViewModel implements Initializable {
     }
 
     private void createTableColumns() {
-        createDeleteTableColumn();
+        if (appStateService.isAdmin()) {
+            createDeleteTableColumn();
+        }
+
         createEditTableColumn();
         TableColumn<EquipmentOption, String> nameColumn = new TableColumn<>("Name");
         nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().name()));
