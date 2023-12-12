@@ -5,14 +5,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-
 @Component
 @Transactional
 @RequiredArgsConstructor
 public class DatabaseSeeder implements CommandLineRunner {
 
-    private static final String SEED_FLAG = "--seed";
     private final EngineSeeder engineSeeder;
     private final EquipmentOptionSeeder equipmentOptionSeeder;
     private final CarSeeder carSeeder;
@@ -20,12 +17,10 @@ public class DatabaseSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        if (Arrays.asList(args).contains(SEED_FLAG)) {
-            engineSeeder.seed(15);
-            equipmentOptionSeeder.seed(5);
-            carSeeder.seed(15);
-            userSeeder.seed(1);
-        }
+        engineSeeder.seed(15);
+        equipmentOptionSeeder.seed(5);
+        carSeeder.seed(15);
+        userSeeder.seed(1);
     }
 
 }

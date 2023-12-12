@@ -7,6 +7,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
   security:
     oauth2:
       client:
@@ -20,7 +23,13 @@ spring:
           issuer-uri: https://accounts.google.com
           jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
   flyway:
-    enabled: true
+    enabled: false
+  datasource:
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/pamiw}
+    username: ${DATASOURCE_USERNAME:pamiw}
+    password: ${DATASOURCE_PASSWORD:pamiw}
   docker:
     compose:
-      enabled: true
+      enabled: false
+  devtools:
+    add-properties: false
